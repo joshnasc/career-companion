@@ -1,0 +1,3342 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<title>Career Companion — Home Page | AI Career Assessment & Opportunity Finder</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/images/logo-dark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  
+  /* ================= THEME DEFINITIONS ================= */
+  :root {
+    /* User Color Palette */
+    --coral: #FCA47C;
+    --coral-light: #FFF0E9;
+    --coral-dark: #E2794D;
+    --cyan: #23CED9;
+    --cyan-tint: #E4FAFC;
+    --cyan-dark: #129FA9;
+    --deep-teal: #0A666D;
+    --yellow: #FAD571;
+    --yellow-tint: #FEF8E6;
+    --sage: #A0CBA6;
+    --sage-tint: #EBF5ED;
+
+    /* Light Theme (Cyber Clean SaaS) */
+    --theme-mode: 'light';
+    --bg: #F8FAFB;
+    --surface: #FFFFFF;
+    --surface-card: #FFFFFF;
+    --surface-muted: #F1F5F7;
+    --surface-sidebar: #17262A;
+    --topbar-bg: rgba(255, 255, 255, 0.94);
+    --ink: #0F172A;
+    --charcoal: #17262A;
+    --text-soft: #5C6E72;
+    --line: #E2E8F0;
+    --line-light: #F1F5F9;
+    --shadow: 0 10px 30px -10px rgba(10, 102, 109, 0.12);
+    --shadow-coral: 0 10px 24px -8px rgba(252, 164, 124, 0.35);
+    --shadow-cyan: 0 10px 24px -8px rgba(35, 206, 217, 0.35);
+    --red: #E04D3F;
+    --grid-pattern: radial-gradient(#CBD5E1 1px, transparent 1px);
+  }
+
+  [data-theme="dark"] {
+    /* Dark Theme (Futuristic Glassmorphism) */
+    --theme-mode: 'dark';
+    --bg: #0B1118;
+    --surface: #111A24;
+    --surface-card: #15222E;
+    --surface-muted: #1B2B3A;
+    --surface-sidebar: #0C131B;
+    --topbar-bg: rgba(17, 26, 36, 0.94);
+    --ink: #F1F5F9;
+    --charcoal: #0F1722;
+    --text-soft: #94A3B8;
+    --line: #223447;
+    --line-light: #1A2837;
+    --shadow: 0 14px 40px -10px rgba(0, 0, 0, 0.65);
+    --shadow-coral: 0 10px 28px -6px rgba(252, 164, 124, 0.25);
+    --shadow-cyan: 0 10px 28px -6px rgba(35, 206, 217, 0.25);
+    --cyan-tint: rgba(35, 206, 217, 0.12);
+    --coral-light: rgba(252, 164, 124, 0.12);
+    --yellow-tint: rgba(250, 213, 113, 0.12);
+    --sage-tint: rgba(160, 203, 166, 0.12);
+    --grid-pattern: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+  }
+
+  /* SVG Icons Uniform Styling */
+  .svg-ic {
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    vertical-align: -3px;
+    flex-shrink: 0;
+    transition: transform 0.2s ease, stroke 0.2s ease;
+  }
+  .svg-ic-sm { width: 14px; height: 14px; vertical-align: -2px; }
+  .svg-ic-lg { width: 22px; height: 22px; vertical-align: -4px; }
+  .svg-ic-xl { width: 30px; height: 30px; }
+
+  /* Brand Logo Components */
+  .brand-logo-img {
+    height: 38px;
+    width: auto;
+    max-width: 195px;
+    object-fit: contain;
+    display: block;
+    transition: filter 0.25s ease;
+  }
+  .brand-logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+  }
+  [data-theme="dark"] .brand-logo-img {
+    /* Gentle brightness boost for dark backgrounds */
+    filter: drop-shadow(0 0 12px rgba(35, 206, 217, 0.2));
+  }
+  .sidebar-brand-wrap {
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sidebar-brand-wrap img {
+    height: 36px;
+    width: auto;
+  }
+
+  /* Futuristic Theme Toggle Button */
+  .theme-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    background: var(--surface);
+    border: 1.5px solid var(--line);
+    color: var(--ink);
+    padding: 7px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 12.5px;
+    font-weight: 600;
+    font-family: inherit;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .theme-toggle-btn:hover {
+    border-color: var(--cyan);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(35, 206, 217, 0.2);
+  }
+
+  /* Landing Page Top Navigation Bar */
+  .landing-nav {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .landing-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* Futuristic Ambient Animations & Glassmorphism */
+  .card {
+    background: var(--surface-card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 22px;
+    color: var(--ink);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card:hover {
+    border-color: rgba(35, 206, 217, 0.5);
+    box-shadow: 0 14px 34px -10px rgba(35, 206, 217, 0.15);
+  }
+  [data-theme="dark"] .card {
+    background: rgba(21, 34, 46, 0.75);
+    backdrop-filter: blur(14px);
+  }
+
+  /* Voice Dictation Audio Wave Visualizer */
+  .audio-wave-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    height: 18px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .audio-bar {
+    width: 3px;
+    height: 6px;
+    background: var(--cyan);
+    border-radius: 3px;
+    transition: height 0.15s ease;
+  }
+  .dictating .audio-bar {
+    animation: wavePulse 0.9s ease-in-out infinite alternate;
+  }
+  .dictating .audio-bar:nth-child(2) { animation-delay: 0.15s; background: var(--coral); }
+  .dictating .audio-bar:nth-child(3) { animation-delay: 0.3s; background: var(--yellow); }
+  .dictating .audio-bar:nth-child(4) { animation-delay: 0.45s; background: var(--cyan); }
+  .dictating .audio-bar:nth-child(5) { animation-delay: 0.2s; background: var(--sage); }
+
+  @keyframes wavePulse {
+    0% { height: 4px; }
+    100% { height: 18px; }
+  }
+
+  /* Staggered Screen Reveal Transition */
+  @keyframes techReveal {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .screen.active {
+    animation: techReveal 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* Dynamic Mock Interview Evaluation Cards */
+  .eval-q-card {
+    background: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 14px;
+    transition: all 0.2s ease;
+  }
+  .eval-q-card:hover {
+    border-color: var(--cyan);
+  }
+  .eval-score-pill {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .eval-score-pill.high { background: var(--sage-tint); color: var(--deep-teal); border: 1px solid rgba(160,203,166,0.5); }
+  .eval-score-pill.mid { background: var(--yellow-tint); color: #8C6700; border: 1px solid rgba(250,213,113,0.5); }
+  .eval-score-pill.low { background: var(--coral-light); color: var(--coral-dark); border: 1px solid rgba(252,164,124,0.5); }
+  .concept-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--cyan-tint);
+    color: var(--deep-teal);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(35,206,217,0.3);
+    margin: 2px 4px 2px 0;
+  }
+
+  :root{
+    /* User-Specified Custom Color Palette */
+    --coral: #FCA47C;
+    --coral-light: #FFF0E9;
+    --coral-dark: #E2794D;
+    --cyan: #23CED9;
+    --cyan-tint: #E4FAFC;
+    --cyan-dark: #129FA9;
+    --deep-teal: #0A666D;
+    --yellow: #FAD571;
+    --yellow-tint: #FEF8E6;
+    --sage: #A0CBA6;
+    --sage-tint: #EBF5ED;
+
+    /* Base Surfaces & Dark Accents */
+    --ink: #121F22;
+    --charcoal: #17262A;
+    --bg: #FBFBF9;
+    --surface: #F2F7F6;
+    --white: #FFFFFF;
+    --line: #DFEAE8;
+    --text-soft: #5C6E72;
+    --red: #E04D3F;
+    --shadow: 0 14px 34px -16px rgba(10, 102, 109, 0.28);
+    --shadow-coral: 0 10px 24px -8px rgba(252, 164, 124, 0.45);
+    --shadow-cyan: 0 10px 24px -8px rgba(35, 206, 217, 0.4);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%;}
+  body{font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); -webkit-font-smoothing:antialiased;}
+  h1,h2,h3,.brandmark span,.hero-title,.q-text,.career-info b,.twin-card p{font-family:'Sora',sans-serif;}
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit; cursor:pointer; border:none;}
+  ::selection{background:var(--cyan); color:#0E1712;}
+
+  /* Persistent sidebar - hidden before login */
+  .app-wrapper{display:flex; min-height:100vh;}
+  .global-sidebar{
+    width:250px; flex-shrink:0; background:var(--charcoal); color:var(--text-main); padding:20px 12px;
+    display:none; flex-direction:column; position:sticky; top:0; height:100vh; z-index:50; overflow-y:auto;
+    border-right: 2px solid rgba(35, 206, 217, 0.15);
+  }
+  .global-sidebar .brandmark{padding:0 8px 16px; margin-bottom:8px; border-bottom:1px solid rgba(255,255,255,.08);}
+  .global-sidebar .brandmark span{color:var(--text-main);}
+  .nav-item{display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px; font-size:13px; font-weight:500; color:#A4B8BA; margin-bottom:2px; background:none; width:100%; text-align:left; transition:all .18s;}
+  .nav-item .ic{width:18px; text-align:center; font-size:14px; flex-shrink:0;}
+  .nav-item .step-badge{margin-left:auto; font-size:9.5px; font-family:'JetBrains Mono',monospace; color:#6D7F82;}
+  .nav-item:hover:not(.locked){background:rgba(255,255,255,.07); color:var(--text-main);}
+  .nav-item.active{background:linear-gradient(135deg, var(--cyan), var(--deep-teal)); color:var(--text-main); font-weight:600; box-shadow:0 4px 14px rgba(35,206,217,.3);}
+  .nav-item.active .step-badge{color:var(--text-main);}
+  .nav-item.done .ic{color:var(--yellow);}
+  .nav-divider{height:1px; background:rgba(255,255,255,.08); margin:8px 8px;}
+  .sidebar-foot{margin-top:auto; padding-top:12px; border-top:1px solid rgba(255,255,255,.08); position:relative;}
+  .user-chip{display:flex; align-items:center; gap:10px; padding:8px; border-radius:10px; width:100%; text-align:left;}
+  .user-chip:hover{background:rgba(255,255,255,.06);}
+  .user-chip .av{width:34px; height:34px; border-radius:10px; background:linear-gradient(135deg,var(--coral),var(--yellow)); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; color:#121F22; flex-shrink:0;}
+  .user-chip .who{flex:1; min-width:0;}
+  .user-chip .who b{display:block; font-size:12.5px; color:var(--text-main); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .user-chip .who span{font-size:11px; color:#8FA4A7;}
+  .user-chip .chevron{font-size:10px; color:#8FA4A7; transition:transform .15s;}
+  .user-chip.menu-open .chevron{transform:rotate(180deg);}
+  .user-menu{
+    position:absolute; bottom:calc(100% + 8px); left:0; right:0; background:#203338; border:1px solid rgba(255,255,255,.1);
+    border-radius:12px; padding:6px; box-shadow:0 12px 30px -10px rgba(0,0,0,.5); display:none; z-index:60;
+  }
+  .user-menu.open{display:block;}
+  .user-menu button{width:100%; text-align:left; padding:9px 11px; border-radius:8px; font-size:12.5px; color:#D3E2E4; display:flex; align-items:center; gap:9px; background:none;}
+  .user-menu button:hover{background:rgba(255,255,255,.07); color:var(--text-main);}
+  .user-menu button.danger{color:#FCA47C;}
+  .user-menu button.danger:hover{background:rgba(252,164,124,.14); color:var(--text-main);}
+
+  .page-area{flex:1; min-width:0;}
+  .screen{display:none;}
+  .screen.active{display:block; animation:fadeUp .3s ease;}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  /* Brandmark */
+  .brandmark{display:flex; align-items:center; gap:10px;}
+  .brandmark .mark{width:34px; height:34px; border-radius:10px; background:linear-gradient(135deg,var(--cyan),var(--coral)); display:flex; align-items:center; justify-content:center; color:#121F22; font-weight:800; font-size:16px;}
+  .brandmark span{font-weight:700; font-size:16.5px; letter-spacing:-.2px;}
+  .eyebrow{display:inline-flex; align-items:center; gap:6px; background:var(--cyan-tint); color:var(--deep-teal); font-size:12px; font-weight:600; padding:5px 12px; border-radius:20px; font-family:'JetBrains Mono',monospace; letter-spacing:.2px; border:1px solid rgba(35,206,217,.3);}
+
+  /* Common buttons & cards */
+  .btn{padding:12px 24px; border-radius:11px; font-weight:600; font-size:14px; display:inline-flex; align-items:center; gap:8px; transition:all .18s;}
+  .btn-primary{background:var(--ink); color:var(--text-main);}
+  .btn-primary:hover{background:#000; transform:translateY(-1px);}
+  .btn-accent{background:var(--coral); color:#121F22; box-shadow:var(--shadow-coral);}
+  .btn-accent:hover{background:var(--coral-dark); color:var(--text-main); transform:translateY(-1px);}
+  .btn-cyan{background:var(--cyan); color:#121F22; box-shadow:var(--shadow-cyan);}
+  .btn-cyan:hover{background:var(--cyan-dark); color:var(--text-main); transform:translateY(-1px);}
+  .btn-ghost{background:var(--surface-card); color:var(--ink); border:1.5px solid var(--line);}
+  .btn-ghost:hover{border-color:var(--deep-teal);}
+  .btn-block{width:100%; justify-content:center;}
+  .btn-sm{padding:8px 15px; font-size:13px; border-radius:9px;}
+  .btn[disabled]{opacity:.5; pointer-events:none;}
+
+  .main-col{width:100%; min-height:100vh; display:flex; flex-direction:column;}
+  .topbar{background:var(--topbar-bg, var(--surface-card)); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid var(--line); padding:18px 32px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:20; gap:16px;}
+  .topbar h1{font-size:19px; font-weight:700; color:var(--ink); letter-spacing:-.3px;}
+  .topbar p{font-size:12.5px; color:var(--text-soft); margin-top:3px;}
+  .content{flex:1; padding:26px 32px 60px;}
+
+  .grid-2{display:grid; grid-template-columns:2fr 1fr; gap:20px;}
+  .grid-2-eq{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  .grid-4{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+  .card{background:var(--surface-card); border:1px solid var(--line); border-radius:16px; padding:22px;}
+  .card h3{font-size:14.5px; font-weight:600; color:var(--ink); margin-bottom:14px; display:flex; justify-content:space-between; align-items:center; font-family:'Sora',sans-serif;}
+  .card h3 .tag{font-size:11px; font-weight:600; color:var(--deep-teal); background:var(--cyan-tint); padding:3px 9px; border-radius:20px; font-family:'JetBrains Mono',monospace;}
+
+  /* Home Page Screen */
+  #screen-landing .hero{max-width:1040px; margin:0 auto; padding:60px 24px 50px; display:grid; grid-template-columns:1.15fr .85fr; gap:40px; align-items:center;}
+  h1.hero-title{font-size:42px; font-weight:800; line-height:1.15; letter-spacing:-1px; color:var(--ink); margin:16px 0 18px;}
+  h1.hero-title em{font-style:normal; color:var(--deep-teal); text-decoration:underline; text-decoration-color:var(--coral); text-decoration-thickness:4px; text-underline-offset:6px;}
+  .hero-sub{font-size:15.5px; color:var(--text-soft); line-height:1.75; margin-bottom:28px;}
+  .cta-row{display:flex; gap:12px; align-items:center; flex-wrap:wrap;}
+  .hero-visual{background:var(--charcoal); border-radius:24px; padding:24px; color:var(--text-main); box-shadow:var(--shadow); position:relative; overflow:hidden;}
+  .hero-visual::before{content:''; position:absolute; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle,rgba(35,206,217,.25),transparent 70%); top:-70px; right:-60px;}
+  .match-card{background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:15px; margin-bottom:10px; position:relative; z-index:1;}
+  .match-card .row{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
+  .match-card .role{font-size:13.5px; font-weight:600;}
+  .match-card .pct{font-size:13.5px; font-weight:700; color:var(--cyan); font-family:'JetBrains Mono',monospace;}
+  .bar-track{height:7px; background:rgba(255,255,255,.12); border-radius:6px; overflow:hidden;}
+  .bar-fill{height:100%; border-radius:6px; background:linear-gradient(90deg,var(--cyan),var(--coral));}
+
+  .stripe{background:var(--white); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .stripe-inner{max-width:1040px; margin:0 auto; padding:20px 24px; display:flex; justify-content:space-between; flex-wrap:wrap;}
+  .stripe-item{text-align:center; padding:0 14px; flex:1; min-width:140px;}
+  .stripe-item b{display:block; font-size:24px; color:var(--ink); font-weight:700; font-family:'JetBrains Mono',monospace;}
+  .stripe-item span{font-size:12px; color:var(--text-soft);}
+
+  .section{max-width:1040px; margin:0 auto; padding:60px 24px;}
+  .section-head{max-width:620px; margin:0 auto 30px; text-align:center;}
+  .section-head h2{font-size:27px; font-weight:700; color:var(--ink); letter-spacing:-.5px; margin-bottom:8px;}
+  .section-head p{color:var(--text-soft); font-size:14.5px; line-height:1.6;}
+  .feature-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  .fcard{background:var(--surface-card); border:1px solid var(--line); border-radius:16px; padding:22px; transition:transform .2s, box-shadow .2s;}
+  .fcard:hover{transform:translateY(-3px); box-shadow:var(--shadow); border-color:var(--cyan);}
+  .fcard .ic{width:42px; height:42px; border-radius:12px; background:var(--cyan-tint); display:flex; align-items:center; justify-content:center; margin-bottom:14px; font-size:19px;}
+  .fcard h3{font-size:15px; font-weight:600; margin-bottom:6px; color:var(--ink);}
+  .fcard p{font-size:13px; color:var(--text-soft); line-height:1.6;}
+
+  /* CSV Resource Cards - Preview Only */
+  .csv-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:20px;}
+  .csv-card{background:var(--surface-card); border:1.5px solid var(--line); border-radius:18px; padding:22px; transition:all .2s; display:flex; flex-direction:column;}
+  .csv-card:hover{border-color:var(--coral); box-shadow:var(--shadow-coral); transform:translateY(-2px);}
+  .csv-card .top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;}
+  .csv-card .ic{width:38px; height:38px; border-radius:10px; background:var(--coral-light); color:var(--coral-dark); display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700;}
+  .csv-badge{font-size:10.5px; font-weight:700; padding:4px 8px; border-radius:12px; font-family:'JetBrains Mono',monospace; background:var(--yellow-tint); color:#8C6700;}
+  .csv-card h4{font-size:15.5px; font-weight:700; color:var(--ink); margin-bottom:6px;}
+  .csv-card p{font-size:12.5px; color:var(--text-soft); line-height:1.55; margin-bottom:16px; flex:1;}
+  .csv-meta{display:flex; align-items:center; gap:8px; font-size:11.5px; color:var(--text-soft); margin-bottom:14px;}
+  .csv-actions{display:flex; gap:10px;}
+
+  .cta-band{max-width:1040px; margin:0 auto 60px; padding:40px; border-radius:24px; background:linear-gradient(135deg, var(--charcoal), #1D343A); color:var(--text-main); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; border:1px solid rgba(35,206,217,.2);}
+  .cta-band h2{font-size:23px; font-weight:700; letter-spacing:-.4px;}
+  .cta-band p{font-size:14px; opacity:.8; margin-top:6px;}
+
+  .site-footer{background:var(--charcoal); color:var(--text-main);}
+  .footer-inner{max-width:1040px; margin:0 auto; padding:46px 24px 30px; display:grid; grid-template-columns:1.4fr 1fr; gap:36px;}
+  .footer-col h4{font-size:13.5px; font-weight:600; margin-bottom:12px; color:var(--text-main);}
+  .footer-col p{font-size:13px; color:#9FB5B8; line-height:1.75;}
+  .footer-col a{color:var(--cyan); font-weight:600;}
+  .footer-col .brandmark{margin-bottom:14px;}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.08); padding:16px 24px; display:flex; align-items:center; justify-content:center;}
+  .footer-bottom span{font-size:12px; color:#8FA4A7;}
+
+  /* Auth Screens */
+  .auth-wrap{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:40px 20px; background:radial-gradient(circle at 15% 20%, var(--coral-light) 0%, transparent 45%), var(--bg);}
+  .auth-card{width:100%; max-width:420px; background:var(--surface-card); border-radius:22px; padding:38px 32px; box-shadow:var(--shadow); border:1px solid var(--line);}
+  .auth-card .brandmark{margin-bottom:24px; justify-content:center;}
+  .auth-card h2{font-size:21px; font-weight:700; text-align:center; color:var(--ink); margin-bottom:6px;}
+  .auth-card p.sub{text-align:center; font-size:13px; color:var(--text-soft); margin-bottom:24px;}
+  .field{margin-bottom:15px;}
+  .field label{display:block; font-size:12.5px; font-weight:600; color:var(--ink); margin-bottom:6px;}
+  .field input, .field select, .field textarea{width:100%; padding:11px 14px; border-radius:10px; border:1.5px solid var(--line); font-family:inherit; font-size:13.5px; color:var(--ink); background:var(--surface); transition:border-color .15s;}
+  .field input:focus, .field select:focus, .field textarea:focus{outline:none; border-color:var(--cyan); background:var(--surface-card);}
+  .auth-meta{display:flex; justify-content:space-between; align-items:center; font-size:12.5px; margin-bottom:18px; color:var(--text-soft);}
+  .auth-meta a{color:var(--deep-teal); font-weight:600;}
+  .text-link-btn{background:none; color:var(--deep-teal); font-weight:600; padding:0; font-size:inherit; text-decoration:underline;}
+  .auth-switch{text-align:center; font-size:13px; color:var(--text-soft); margin-top:18px;}
+  .divider{display:flex; align-items:center; gap:12px; margin:18px 0; color:var(--text-soft); font-size:11.5px;}
+  .divider::before, .divider::after{content:''; flex:1; height:1px; background:var(--line);}
+  .field-hint{font-size:11.5px; color:var(--text-soft); margin-top:5px; line-height:1.4;}
+  .field-hint.error{color:var(--red); font-weight:500;}
+  .field-hint.valid{color:var(--deep-teal); font-weight:500;}
+  .auth-banner{font-size:12.5px; font-weight:500; padding:10px 14px; border-radius:10px; margin-bottom:16px; line-height:1.5;}
+  .auth-banner.error{background:#FDF3F2; color:var(--red); border:1px solid #F3C9C4;}
+  .auth-banner.success{background:var(--sage-tint); color:var(--deep-teal); border:1px solid #B7DEBC;}
+  .storage-note{font-size:11px; color:#85999C; text-align:center; margin-top:16px; line-height:1.5;}
+  .password-wrap{position:relative;}
+  .password-wrap input{padding-right:44px;}
+  .toggle-password{position:absolute; right:6px; top:50%; transform:translateY(-50%); background:none; width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; color:var(--text-soft); opacity:.7;}
+
+  /* Dropzone & file uploads */
+  .dropzone{border:2px dashed #9FC6A2; border-radius:18px; padding:44px 20px; text-align:center; background:var(--sage-tint); cursor:pointer; transition:all .2s;}
+  .dropzone:hover, .dropzone.drag{border-color:var(--cyan); background:#E3F8F9;}
+  .dropzone .ic{width:52px; height:52px; margin:0 auto 14px; background:var(--surface-card); border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:22px; box-shadow:var(--shadow);}
+  .dropzone h3{font-size:15px; color:var(--ink); margin-bottom:5px;}
+  .dropzone p{font-size:12.5px; color:var(--text-soft); margin-bottom:16px;}
+  #resume-file-input{display:none;}
+  .file-chip{display:flex; align-items:center; gap:12px; background:var(--surface-card); border:1px solid var(--line); border-radius:12px; padding:12px 16px; margin-top:14px;}
+  .file-chip .ic{width:34px; height:34px; border-radius:9px; background:#FFF0E9; color:var(--coral-dark); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;}
+  .file-chip .info b{display:block; font-size:13px; color:var(--ink);}
+  .file-chip .info span{font-size:11.5px; color:var(--text-soft);}
+  .progress-track{height:8px; background:var(--cyan-tint); border-radius:6px; overflow:hidden; margin-top:12px;}
+  .progress-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--cyan),var(--coral)); border-radius:6px; transition:width .3s;}
+  .extract-tag{display:inline-flex; align-items:center; gap:6px; background:var(--cyan-tint); color:var(--deep-teal); font-size:12px; font-weight:600; padding:5px 11px; border-radius:20px; margin:3px 5px 3px 0; border:1px solid rgba(35,206,217,.25);}
+
+  /* Quiz Assessment */
+  .quiz-card{max-width:680px; margin:0 auto;}
+  .quiz-progress{display:flex; align-items:center; gap:10px; margin-bottom:22px;}
+  .quiz-progress .track{flex:1; height:7px; background:var(--line); border-radius:6px; overflow:hidden;}
+  .quiz-progress .fill{height:100%; background:linear-gradient(90deg,var(--cyan),var(--coral)); border-radius:6px; transition:width .3s;}
+  .quiz-progress span{font-size:12px; font-weight:600; color:var(--text-soft); white-space:nowrap; font-family:'JetBrains Mono',monospace;}
+  .q-tag{font-size:11.5px; font-weight:600; color:var(--deep-teal); background:var(--cyan-tint); padding:4px 10px; border-radius:20px; display:inline-block; margin-bottom:12px; font-family:'JetBrains Mono',monospace; border:1px solid rgba(35,206,217,.3);}
+  .q-text{font-size:18px; font-weight:600; color:var(--ink); line-height:1.5; margin-bottom:22px;}
+  .opt{display:flex; align-items:center; gap:12px; padding:14px 16px; border:1.5px solid var(--line); border-radius:12px; margin-bottom:10px; font-size:13.5px; color:var(--ink); background:var(--surface-card); transition:all .15s; width:100%; text-align:left;}
+  .opt .bullet{width:20px; height:20px; border-radius:6px; border:1.5px solid #BAC9C7; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:11px; color:var(--text-main);}
+  .opt:hover{border-color:var(--cyan); background:var(--surface);}
+  .opt.selected{border-color:var(--cyan); background:var(--cyan-tint); font-weight:600;}
+  .opt.selected .bullet{background:var(--cyan); border-color:var(--cyan);}
+  .quiz-foot{display:flex; justify-content:space-between; align-items:center; margin-top:24px;}
+
+  /* Career recommendation & Twin */
+  .twin-card{background:linear-gradient(135deg, var(--charcoal), #163035); color:var(--text-main); border-radius:20px; padding:28px; margin-bottom:22px; position:relative; overflow:hidden; border:1px solid rgba(35,206,217,.25);}
+  .twin-card::before{content:'"'; position:absolute; font-size:140px; font-family:Georgia,serif; top:-40px; right:14px; color:rgba(255,255,255,.05);}
+  .twin-card .eyebrow{background:rgba(250,213,113,.15); color:var(--yellow); border-color:rgba(250,213,113,.3);}
+  .twin-card p{font-size:15.5px; line-height:1.75; max-width:680px; margin-top:12px; position:relative; font-family:'Inter',sans-serif;}
+  .career-card{background:var(--surface-card); border:1.5px solid var(--line); border-radius:16px; padding:18px; margin-bottom:12px; display:flex; align-items:center; gap:18px; transition:all .18s;}
+  .career-card:hover{border-color:var(--coral); transform:translateY(-1px); box-shadow:var(--shadow);}
+  .rank{width:36px; height:36px; border-radius:10px; background:var(--charcoal); color:var(--cyan); font-weight:700; font-size:13.5px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'JetBrains Mono',monospace;}
+  .career-info{flex:1;}
+  .career-info b{font-size:15px; color:var(--ink); font-weight:600;}
+  .career-info .track{height:7px; background:var(--surface); border-radius:6px; margin-top:8px; overflow:hidden;}
+  .career-info .fill{height:100%; border-radius:6px; background:linear-gradient(90deg,var(--cyan),var(--coral));}
+  .career-pct{font-size:21px; font-weight:700; color:var(--deep-teal); width:64px; text-align:right; flex-shrink:0; font-family:'JetBrains Mono',monospace;}
+
+  /* Dashboard Metrics & Charts */
+  .metric-card{background:var(--surface-card); border:1px solid var(--line); border-radius:16px; padding:18px; text-align:center;}
+  .metric-card .num{font-size:26px; font-weight:700; color:var(--ink); font-family:'JetBrains Mono',monospace; margin-top:4px;}
+  .metric-card .label{font-size:12px; color:var(--text-soft); font-weight:500;}
+
+  /* Skill gap & Roadmap */
+  .skillgap-col{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .sg-list{list-style:none;}
+  .sg-list li{display:flex; align-items:center; gap:10px; padding:8px 0; font-size:13px; border-bottom:1px solid var(--line);}
+  .sg-list li:last-child{border-bottom:none;}
+  .sg-list.have li .mark{color:var(--deep-teal); font-weight:700;}
+  .sg-list.missing li .mark{color:var(--coral-dark); font-weight:700;}
+  .roadmap-item{display:flex; gap:14px; padding:14px 0; border-bottom:1px solid var(--line);}
+  .roadmap-item:last-child{border-bottom:none;}
+  .roadmap-week{width:64px; flex-shrink:0; font-size:11.5px; font-weight:700; color:var(--deep-teal); font-family:'JetBrains Mono',monospace;}
+  .roadmap-item b{font-size:13px; color:var(--ink); font-weight:600; display:block;}
+  .roadmap-item p{font-size:12px; color:var(--text-soft); margin-top:2px;}
+
+  /* Opportunities Screen */
+  .filter-pills{display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap;}
+  .filter-pill{padding:7px 14px; border-radius:20px; font-size:12.5px; font-weight:600; border:1px solid var(--line); background:var(--surface-card); color:var(--text-soft); cursor:pointer; transition:all .15s;}
+  .filter-pill.active{background:var(--charcoal); color:var(--text-main); border-color:var(--charcoal);}
+  .opp-card{background:var(--surface-card); border:1px solid var(--line); border-radius:16px; padding:20px; margin-bottom:14px; transition:transform .18s, border-color .18s;}
+  .opp-card:hover{transform:translateY(-2px); border-color:var(--cyan); box-shadow:var(--shadow);}
+  .opp-card .head{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;}
+  .opp-card .title{font-size:15px; font-weight:700; color:var(--ink);}
+  .opp-card .comp{font-size:12.5px; color:var(--text-soft); margin-top:2px;}
+  .opp-badge{font-size:11px; font-weight:600; padding:4px 9px; border-radius:12px; font-family:'JetBrains Mono',monospace;}
+  .opp-badge.intern{background:var(--cyan-tint); color:var(--deep-teal);}
+  .opp-badge.job{background:var(--sage-tint); color:var(--deep-teal);}
+  .opp-badge.hack{background:var(--yellow-tint); color:#8C6700;}
+  .opp-badge.cert{background:var(--coral-light); color:var(--coral-dark);}
+  .opp-card .desc{font-size:12.5px; color:var(--text-soft); line-height:1.55; margin:10px 0;}
+  .opp-card .foot{display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--line); padding-top:10px; margin-top:10px;}
+
+  /* Interview Simulator */
+  .interview-box{background:var(--surface-card); border:1px solid var(--line); border-radius:18px; padding:24px;}
+  .interview-prompt{background:var(--surface-muted); border-left:4px solid var(--accent-violet); border:1px solid var(--border); border-left-width:4px; padding:18px; border-radius:12px; margin-bottom:18px;}
+  .interview-prompt h4{font-size:11.5px; font-family:'JetBrains Mono',monospace; color:var(--deep-teal); margin-bottom:4px; text-transform:uppercase;}
+  .interview-prompt p{font-size:15px; font-weight:600; color:var(--ink); line-height:1.5;}
+  .interview-answer{width:100%; min-height:130px; padding:14px; border:1.5px solid var(--line); border-radius:12px; font-family:inherit; font-size:13.5px; color:var(--ink); resize:vertical; background:var(--surface-card);}
+  .interview-answer:focus{outline:none; border-color:var(--cyan);}
+  .score-gauge{text-align:center; padding:16px; border-radius:14px; background:var(--surface);}
+  .score-gauge .val{font-size:28px; font-weight:800; font-family:'JetBrains Mono',monospace; color:var(--ink);}
+  .score-gauge .name{font-size:11.5px; font-weight:600; color:var(--text-soft); margin-top:2px;}
+
+  /* Profile Screen */
+  .profile-head{display:flex; align-items:center; gap:20px; margin-bottom:22px;}
+  .profile-head .av-lg{width:76px; height:76px; border-radius:20px; background:linear-gradient(135deg,var(--coral),var(--yellow)); display:flex; align-items:center; justify-content:center; font-size:26px; font-weight:700; color:#121F22;}
+  .profile-head h2{font-size:20px; font-weight:700; color:var(--ink);}
+  .profile-head p{font-size:13px; color:var(--text-soft); margin-top:3px;}
+  .badge-row{display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;}
+  .badge{font-size:11.5px; font-weight:600; padding:4px 11px; border-radius:20px; background:var(--cyan-tint); color:var(--deep-teal);}
+  .skill-row{display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-size:13px;}
+  .skill-row .name{color:var(--ink); font-weight:500; width:130px; flex-shrink:0;}
+  .skill-row .track{flex:1; height:7px; background:var(--surface); border-radius:6px; margin:0 12px; overflow:hidden;}
+  .skill-row .fill{height:100%; background:linear-gradient(90deg,var(--cyan),var(--coral)); border-radius:6px;}
+  .skill-row .val{width:36px; text-align:right; font-weight:600; color:var(--ink); font-size:12.5px; font-family:'JetBrains Mono',monospace;}
+
+  .tag-input-row{display:flex; gap:8px; margin-bottom:12px;}
+  .tag-input-row input{flex:1; padding:9px 12px; border-radius:9px; border:1.5px solid var(--line); font-family:inherit; font-size:13px; background:var(--surface);}
+  .tag-input-row input:focus{outline:none; border-color:var(--cyan); background:var(--surface-card);}
+  .tag-list{display:flex; flex-wrap:wrap; gap:7px;}
+  .tag-chip{display:inline-flex; align-items:center; gap:6px; background:var(--cyan-tint); color:var(--deep-teal); font-size:12px; font-weight:600; padding:5px 8px 5px 11px; border-radius:20px; border:1px solid rgba(35,206,217,.25);}
+  .tag-chip button{background:none; color:var(--deep-teal); font-size:14px; line-height:1; opacity:.55; width:16px; height:16px; display:flex; align-items:center; justify-content:center;}
+  .tag-chip button:hover{opacity:1;}
+
+  .avatar-upload{width:120px; height:120px; border-radius:50%; margin:0 auto 14px; overflow:hidden; background:var(--cyan-tint); display:flex; align-items:center; justify-content:center; font-size:30px; font-weight:700; color:var(--deep-teal); border:3px solid var(--line); background-size:cover; background-position:center;}
+  .resume-chip{display:flex; align-items:center; gap:12px; background:var(--surface-card); border:1px solid var(--line); border-radius:12px; padding:10px 14px; margin-bottom:8px;}
+  .resume-chip .ic{width:30px; height:30px; border-radius:8px; background:var(--coral-light); color:var(--coral-dark); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex-shrink:0;}
+  .resume-chip .info{flex:1; min-width:0;}
+  .resume-chip .info b{display:block; font-size:12.5px; color:var(--ink); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .resume-chip .info span{font-size:11px; color:var(--text-soft);}
+  .resume-chip .remove-btn{background:none; color:var(--text-soft); font-size:16px; width:26px; height:26px; border-radius:7px; flex-shrink:0;}
+  .resume-chip .remove-btn:hover{background:var(--surface); color:var(--red);}
+
+  /* Modal for CSV Preview */
+  .modal-backdrop{position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(18,31,34,.6); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; z-index:200; padding:20px;}
+  .modal-backdrop.open{display:flex;}
+  .modal-card{background:var(--surface-card); border-radius:20px; width:100%; max-width:850px; max-height:85vh; display:flex; flex-direction:column; box-shadow:0 24px 60px -15px rgba(0,0,0,.4); border:1px solid var(--line); overflow:hidden;}
+  .modal-head{padding:18px 24px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; background:var(--surface);}
+  .modal-head h3{font-size:16px; font-weight:700; color:var(--ink); margin:0;}
+  .modal-body{padding:20px 24px; overflow:auto; flex:1;}
+  .modal-foot{padding:16px 24px; border-top:1px solid var(--line); display:flex; justify-content:flex-end; gap:12px; background:var(--surface);}
+  .preview-table{width:100%; border-collapse:collapse; font-size:12px; text-align:left;}
+  .preview-table th{background:var(--charcoal); color:var(--text-main); padding:10px 12px; font-family:'JetBrains Mono',monospace; font-weight:600; white-space:nowrap;}
+  .preview-table td{padding:10px 12px; border-bottom:1px solid var(--line); color:var(--ink); white-space:nowrap;}
+  .preview-table tr:nth-child(even) td{background:var(--surface-muted);}
+
+  /* Toast Notification */
+  .toast{position:fixed; bottom:26px; left:50%; transform:translate(-50%,16px); background:var(--charcoal); color:var(--text-main); padding:12px 22px; border-radius:10px; font-size:13px; font-weight:500; opacity:0; transition:all .25s ease; z-index:300; box-shadow:var(--shadow); pointer-events:none;}
+  .toast.show{opacity:1; transform:translate(-50%,0);}
+</style>
+<link rel="stylesheet" href="/css/theme-system.css">
+</head>
+<body>
+
+<div class="app-wrapper" id="appWrapper">
+  <!-- Persistent Sidebar: Displayed ONLY after student login, starts from Resume Upload -->
+  <aside class="global-sidebar" id="globalSidebar"></aside>
+
+  <!-- Main Application Area -->
+  <div class="page-area">
+
+  <!-- ===================== SCREEN 1: HOME PAGE ===================== -->
+  <section class="screen active" id="screen-landing">
+
+    <!-- Landing Top Navigation (Original 1100px Aligned) -->
+    <header class="landing-nav">
+      <div class="brand-logo-wrap">
+        <img src="/images/logo-dark.png" alt="Career Companion" class="brand-logo-img logo-dark-variant" style="height:38px;">
+        <img src="/images/logo-light.png" alt="Career Companion" class="brand-logo-img logo-light-variant" style="height:38px;">
+      </div>
+      <div class="landing-nav-actions">
+        <button class="theme-toggle-btn" type="button" onclick="toggleTheme()" title="Switch Light / Dark Theme">
+          <span class="theme-ic-holder"></span>
+          <span class="theme-label-holder">Theme</span>
+        </button>
+        <button class="btn btn-ghost btn-sm" type="button" onclick="showScreen('login')">Log In</button>
+        <button class="btn btn-violet btn-sm" type="button" onclick="showScreen('login')">Get Started</button>
+      </div>
+    </header>
+
+    <!-- Original 1040px Two-Column Aligned Hero -->
+    <div class="hero">
+      <div>
+        <div class="eyebrow"><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> AI CAREER ASSESSMENT &amp; OPPORTUNITY ECOSYSTEM</div>
+        <h1 class="hero-title">Decode your unique <em>Career DNA</em> and land your dream offer.</h1>
+        <p class="hero-sub">From campus to high-growth tech careers: upload your resume, take an adaptive competency assessment built for your actual code, discover your Career Twin, and follow a personalized 8-week mastery roadmap.</p>
+        <div class="cta-row">
+          <button class="btn btn-violet" type="button" onclick="showScreen('login')">Launch Career Journey &rarr;</button>
+          <button class="btn btn-ghost" type="button" onclick="showScreen('login')">Student Login</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div style="font-size:11.5px; color:var(--accent-cyan); font-weight:600; margin-bottom:12px; position:relative; z-index:1; font-family:'JetBrains Mono',monospace;">LIVE CAREER MATCH ESTIMATES</div>
+        <div class="match-card"><div class="row"><span class="role">Software Engineer</span><span class="pct">94%</span></div><div class="bar-track"><div class="bar-fill" style="width:94%"></div></div></div>
+        <div class="match-card"><div class="row"><span class="role">Data Analyst</span><span class="pct">89%</span></div><div class="bar-track"><div class="bar-fill" style="width:89%"></div></div></div>
+        <div class="match-card"><div class="row"><span class="role">UI/UX Designer</span><span class="pct">78%</span></div><div class="bar-track"><div class="bar-fill" style="width:78%"></div></div></div>
+      </div>
+    </div>
+
+    <!-- Original Aligned Stats Stripe -->
+    <div class="stripe"><div class="stripe-inner">
+      <div class="stripe-item"><b>100%</b><span>Personalized Questions</span></div>
+      <div class="stripe-item"><b>40%</b><span>Resume Quality Weight</span></div>
+      <div class="stripe-item"><b>4–6 Mo</b><span>Target Skill Bridging</span></div>
+      <div class="stripe-item"><b>4 Vectors</b><span>Interview Readiness Matrix</span></div>
+    </div></div>
+
+    <!-- Interactive Career Toolkit & CSV Templates Section (Preview Only) -->
+    <div class="section" id="toolkitSection">
+      <div class="section-head">
+        <div class="eyebrow" style="background:var(--yellow-tint); color:#8C6700; border-color:rgba(250,213,113,.4);">ACTIONABLE STUDENT TOOLKIT</div>
+        <h2>Professional Career Planning &amp; Tracking Spreadsheets</h2>
+        <p>Pre-formatted, industry-grade templates to organize your job search, technical interview preparation, and 8-week skill milestones.</p>
+      </div>
+
+      <div class="csv-grid">
+        <!-- CSV Card 1 -->
+        <div class="csv-card">
+          <div class="top">
+            <div class="ic"><svg class="svg-ic-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg></div>
+            <span class="csv-badge">JOB SEARCH PIPELINE</span>
+          </div>
+          <h4>Job &amp; Internship Application Tracker</h4>
+          <p>Organize target applications, recruiter outreach dates, interview rounds, salary offers, and follow-up deadlines so no opportunity slips away.</p>
+          <div class="csv-meta"><span><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg> 11 Columns</span> · <span><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg> Pre-populated with 5 tech roles</span></div>
+          <div class="csv-actions">
+            <button class="btn btn-cyan btn-sm" onclick="previewCsv('job_tracker')"><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Preview Table</button>
+          </div>
+        </div>
+
+        <!-- CSV Card 2 -->
+        <div class="csv-card">
+          <div class="top">
+            <div class="ic" style="background:var(--cyan-tint); color:var(--deep-teal);"><svg class="svg-ic-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+            <span class="csv-badge" style="background:var(--cyan-tint); color:var(--deep-teal);">SKILL MATRIX</span>
+          </div>
+          <h4>Skill Gap &amp; Weekly Study Hours Log</h4>
+          <p>Pinpoint missing technical competencies, assign weekly learning hours, record tutorial URLs, and track hands-on project milestones.</p>
+          <div class="csv-meta"><span><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg> 9 Columns</span> · <span><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg> Standardized proficiency metrics</span></div>
+          <div class="csv-actions">
+            <button class="btn btn-cyan btn-sm" onclick="previewCsv('skill_log')"><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Preview Table</button>
+          </div>
+        </div>
+
+        <!-- CSV Card 3 -->
+        <div class="csv-card">
+          <div class="top">
+            <div class="ic" style="background:var(--sage-tint); color:var(--deep-teal);"><svg class="svg-ic-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <span class="csv-badge" style="background:var(--sage-tint); color:var(--deep-teal);">INTERVIEW DRILL</span>
+          </div>
+          <h4>Technical Interview Problem-Solving Matrix</h4>
+          <p>Structured problem tracker categorizing algorithmic challenges by pattern (Two Pointers, Sliding Window, DP), time complexity, and revision status.</p>
+          <div class="csv-meta"><span><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg> 10 Columns</span> · <span><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg> Spaced repetition review dates</span></div>
+          <div class="csv-actions">
+            <button class="btn btn-cyan btn-sm" onclick="previewCsv('interview_matrix')"><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Preview Table</button>
+          </div>
+        </div>
+
+        <!-- CSV Card 4 -->
+        <div class="csv-card">
+          <div class="top">
+            <div class="ic" style="background:var(--yellow-tint); color:#8C6700;"><svg class="svg-ic-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></div>
+            <span class="csv-badge">8-WEEK ROADMAP</span>
+          </div>
+          <h4>8-Week Career Roadmap Execution Planner</h4>
+          <p>Sprint-by-sprint weekly schedule designed to guide students from skill revision to portfolio deployment, ATS resume tailoring, and mock interviews.</p>
+          <div class="csv-meta"><span><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg> 8 Columns</span> · <span><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg> Structured weekly deliverables</span></div>
+          <div class="csv-actions">
+            <button class="btn btn-cyan btn-sm" onclick="previewCsv('roadmap_planner')"><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Preview Table</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="section" style="padding-top:0;">
+      <div class="section-head">
+        <div class="eyebrow">INTELLIGENT ECOSYSTEM</div>
+        <h2>Built specifically for modern tech students &amp; graduates</h2>
+        <p>Combining AI, Natural Language Processing, and psychometrics to replace generic career tests with personalized career coaching.</p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="fcard"><div class="ic"><svg class="svg-ic-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3>Smart Resume Parsing</h3><p>Extracts technical languages, frameworks, education, and GitHub links in seconds from PDF and DOCX files.</p></div>
+        <div class="fcard"><div class="ic"><svg class="svg-ic-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/></svg></div><h3>Adaptive Competency Quiz</h3><p>Evaluates your skills with dynamic technical questions tailored specifically to what you list on your resume.</p></div>
+        <div class="fcard"><div class="ic"><svg class="svg-ic-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><h3>Role Matching &amp; Career Twin</h3><p>Weighted matching across 8 in-demand disciplines and synthesizes your personalized Career Twin persona.</p></div>
+        <div class="fcard"><div class="ic"><svg class="svg-ic-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div><h3>Passions &amp; Work-Style Profile</h3><p>Aligns career trajectory with what excites you: deep architecture, visual design, research, or product leadership.</p></div>
+        <div class="fcard"><div class="ic"><svg class="svg-ic-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><h3>Employability Radar Matrix</h3><p>Visual 6-dimension radar score tracking technical proficiency, problem-solving, communication, and learning velocity.</p></div>
+        <div class="fcard"><div class="ic"><svg class="svg-ic-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><h3>Skill Gap Diagnostics</h3><p>Instant clarity on what you already have versus the missing skills required to break into top-tier tech roles.</p></div>
+        <div class="fcard"><div class="ic"><svg class="svg-ic-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></div><h3>8-Week Mastery Sprint</h3><p>Step-by-step weekly curriculum designed to take you from fundamentals to a production portfolio.</p></div>
+        <div class="fcard"><div class="ic"><svg class="svg-ic-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div><h3>Live Opportunity Hub</h3><p>Searchable directory of student internships at Google, Microsoft, Atlassian, major hackathons, and certifications.</p></div>
+        <div class="fcard"><div class="ic"><svg class="svg-ic-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg></div><h3>AI Mock Interview Studio</h3><p>Interactive practice with voice or text input, measuring Technical, Communication, and Confidence readiness scores.</p></div>
+      </div>
+    </div>
+
+    <div class="cta-band">
+      <div><h2>Ready to see where your skills can take you?</h2><p>Takes less than 10 minutes to analyze your resume and generate your complete career roadmap.</p></div>
+      <button class="btn btn-cyan" onclick="showScreen('login')">Get Started Free →</button>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <div class="brand-logo-wrap" style="background:rgba(255,255,255,0.08); padding:6px 12px; border-radius:10px; width:fit-content;"><img src="/images/logo-dark.png" alt="Career Companion" class="brand-logo-img logo-dark-variant"><img src="/images/logo-light.png" alt="Career Companion" class="brand-logo-img logo-light-variant"></div>
+          <p>An AI-driven career acceleration platform designed for BCA and engineering graduates to bridge the gap between classroom skills and dream opportunities.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Career Resources</h4>
+          <p>Explore our spreadsheet templates, adaptive quizzes, and ATS resume audits.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Career Companion. AI-Powered Career Assessment &amp; Opportunity Finder.</span>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ===================== SCREEN 2: AUTH ===================== -->
+  <section class="screen" id="screen-login">
+    <div class="auth-wrap">
+      <div class="auth-card">
+        <div class="brand-logo-wrap" style="justify-content:center;">
+  <img src="/images/logo-dark.png" alt="Career Companion" class="brand-logo-img logo-dark-variant" style="height:38px;">
+  <img src="/images/logo-light.png" alt="Career Companion" class="brand-logo-img logo-light-variant" style="height:38px;">
+</div>
+        <h2 id="authHeading">Welcome back</h2>
+        <p class="sub" id="authSub">Log in to continue your career journey</p>
+        <div id="authBanner" class="auth-banner" style="display:none;"></div>
+
+        <div id="registerFields" style="display:none;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="field">
+              <label>First name</label>
+              <input type="text" id="registerFirstName" placeholder="First name" autocomplete="given-name">
+            </div>
+            <div class="field">
+              <label>Last name</label>
+              <input type="text" id="registerLastName" placeholder="Last name" autocomplete="family-name">
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Email address</label>
+          <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email">
+          <p class="field-hint" id="emailHint">Enter a valid email address (e.g. name@example.com)</p>
+        </div>
+
+        <div class="field">
+          <label>Password</label>
+          <div class="password-wrap">
+            <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+            <button type="button" class="toggle-password" id="togglePasswordBtn" onclick="togglePasswordVisibility()" aria-label="Show password"><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+          </div>
+          <p class="field-hint" id="passwordHint">Minimum 8 characters, at least one number and one special character (e.g. Career@123)</p>
+        </div>
+
+        <div class="field" id="confirmPasswordField" style="display:none;">
+          <label>Confirm password</label>
+          <input type="password" id="confirmPassword" placeholder="Re-enter password" autocomplete="new-password">
+          <p class="field-hint" id="confirmPasswordHint">Enter the exact same password.</p>
+        </div>
+
+        <div class="auth-meta" id="loginMeta">
+          <label style="display:flex; align-items:center; gap:6px;">
+            <input type="checkbox" id="rememberMe" checked style="width:auto;"> Remember me
+          </label>
+          <button type="button" class="text-link-btn" onclick="showForgotPassword()">Forgot password?</button>
+        </div>
+
+        <button class="btn btn-cyan btn-block" id="loginSubmitBtn" onclick="handleLogin()">Log In →</button>
+        <div class="divider">OR</div>
+        <button class="btn btn-ghost btn-block" type="button" onclick="continueWithGoogle()">Continue with Demo Account (Google)</button>
+
+        <p class="auth-switch" id="authSwitchText">New student? <button type="button" class="text-link-btn" onclick="toggleAuthMode('register')">Create an account</button></p>
+        <div style="text-align:center; margin-top:14px;">
+          <button type="button" class="text-link-btn" style="font-size:12px; color:var(--text-soft);" onclick="showScreen('landing')">← Back to Home Page</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN: FORGOT PASSWORD ===================== -->
+  <section class="screen" id="screen-forgot">
+    <div class="auth-wrap">
+      <div class="auth-card">
+        <div class="brand-logo-wrap" style="justify-content:center;">
+  <img src="/images/logo-dark.png" alt="Career Companion" class="brand-logo-img logo-dark-variant" style="height:38px;">
+  <img src="/images/logo-light.png" alt="Career Companion" class="brand-logo-img logo-light-variant" style="height:38px;">
+</div>
+        <h2>Forgot password?</h2>
+        <p class="sub">Enter your account email to receive reset instructions.</p>
+        <div id="forgotBanner" class="auth-banner" style="display:none;"></div>
+        <div class="field">
+          <label>Email address</label>
+          <input type="email" id="forgotEmail" placeholder="you@example.com">
+        </div>
+        <button class="btn btn-cyan btn-block" id="forgotSubmitBtn" onclick="requestPasswordReset()">Send Reset Instructions →</button>
+        <button class="btn btn-ghost btn-block" style="margin-top:10px;" type="button" onclick="toggleAuthMode('login'); showScreen('login')">← Back to Login</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN: RESET PASSWORD ===================== -->
+  <section class="screen" id="screen-reset">
+    <div class="auth-wrap">
+      <div class="auth-card">
+        <div class="brand-logo-wrap" style="justify-content:center;">
+  <img src="/images/logo-dark.png" alt="Career Companion" class="brand-logo-img logo-dark-variant" style="height:38px;">
+  <img src="/images/logo-light.png" alt="Career Companion" class="brand-logo-img logo-light-variant" style="height:38px;">
+</div>
+        <h2>Set new password</h2>
+        <p class="sub">Choose a secure new password for your account.</p>
+        <div id="resetBanner" class="auth-banner" style="display:none;"></div>
+        <input type="hidden" id="resetToken">
+        <div class="field">
+          <label>New password</label>
+          <input type="password" id="resetPassword" placeholder="••••••••">
+        </div>
+        <div class="field">
+          <label>Confirm new password</label>
+          <input type="password" id="resetPasswordConfirm" placeholder="••••••••">
+        </div>
+        <button class="btn btn-cyan btn-block" id="resetSubmitBtn" onclick="resetPassword()">Update Password →</button>
+        <button class="btn btn-ghost btn-block" style="margin-top:10px;" type="button" onclick="toggleAuthMode('login'); showScreen('login')">← Back to Login</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN 3: RESUME UPLOAD ===================== -->
+  <section class="screen" id="screen-resume">
+    <div class="main-col">
+      <div class="topbar">
+        <div>
+          <h1>Resume Upload</h1>
+          <p>Upload your resume to extract skills and calculate your live ATS score</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button class="btn btn-cyan btn-sm" id="resumeNextBtn" onclick="goTo('assessment')" disabled>Continue to Assessment →</button>
+        </div>
+      </div>
+      <div class="content">
+        <div class="grid-2">
+          <div>
+            <div class="card" style="margin-bottom:16px;">
+              <h3>Upload your resume</h3>
+              <div class="dropzone" id="dropzone" onclick="document.getElementById('resume-file-input').click()">
+                <div class="ic"><svg class="svg-ic-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/><polyline points="16 16 12 12 8 16"/></svg></div>
+                <h3>Drag &amp; drop your resume here</h3>
+                <p>or click to browse · PDF or DOCX up to 5MB</p>
+                <button class="btn btn-cyan btn-sm" type="button">Choose File</button>
+              </div>
+              <input type="file" id="resume-file-input" accept=".pdf,.docx">
+              <div id="fileChipHolder"></div>
+              <div class="progress-track" id="progressTrack" style="display:none;"><div class="progress-fill" id="progressFill"></div></div>
+            </div>
+
+            <!-- ATS Feedback -->
+            <div class="card" id="atsFeedbackCard" style="display:none;">
+              <h3>Resume ATS Quality &amp; Feedback <span class="tag" id="atsScoreBadge">ATS Score</span></h3>
+              <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+                <div style="font-size:38px; font-weight:800; font-family:'JetBrains Mono',monospace; color:var(--deep-teal);" id="atsScoreDisplay">78%</div>
+                <div style="font-size:12.5px; color:var(--text-soft); line-height:1.5;">Evaluated for quantifiable achievements, action verbs, skill density, formatting, and industry keywords.</div>
+              </div>
+              <div style="font-size:12.5px; font-weight:600; color:var(--ink); margin-bottom:8px;">Optimization Checklist:</div>
+              <ul class="sg-list" id="atsSuggestionsList" style="font-size:12.5px;"></ul>
+            </div>
+          </div>
+
+          <!-- Extracted Info -->
+          <div>
+            <div class="card" id="extractCard" style="display:none;">
+              <h3>Extracted Information <span class="tag">AI Parsed</span></h3>
+              <div style="font-size:12px; font-weight:600; color:var(--text-soft); margin-bottom:6px;">Skills Detected</div>
+              <div id="extractedSkills" style="margin-bottom:14px;"><span style="font-size:12px;color:var(--text-soft);">Waiting for resume…</span></div>
+
+              <div style="font-size:12px; font-weight:600; color:var(--text-soft); margin-bottom:6px;">Education</div>
+              <div id="extractedEducation" style="margin-bottom:14px;"><span style="font-size:12px;color:var(--text-soft);">Waiting for resume…</span></div>
+
+              <div style="font-size:12px; font-weight:600; color:var(--text-soft); margin-bottom:6px;">Projects</div>
+              <div id="extractedProjects" style="margin-bottom:14px;"><span style="font-size:12px;color:var(--text-soft);">Waiting for resume…</span></div>
+
+              <div style="font-size:12px; font-weight:600; color:var(--text-soft); margin-bottom:6px;">Certifications</div>
+              <div id="extractedCertifications"><span style="font-size:12px;color:var(--text-soft);">Waiting for resume…</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN 4: ADAPTIVE COMPETENCY ASSESSMENT ===================== -->
+  <section class="screen" id="screen-assessment">
+    <div class="main-col">
+      <div class="topbar">
+        <div>
+          <h1>Adaptive Competency Assessment</h1>
+          <p>Dynamic technical evaluation calibrated directly to the skills in your profile</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button class="btn btn-ghost btn-sm" onclick="goTo('resume')">← Resume</button>
+          <button class="btn btn-cyan btn-sm" onclick="goTo('psychometrics')">Next: Interests &amp; Style →</button>
+        </div>
+      </div>
+      <div class="content">
+        <!-- If already completed: show permanent Completed state card -->
+        <div id="assessmentCompletedCard" class="card" style="display:none; text-align:center; padding:44px 24px; max-width:680px; margin:0 auto;">
+          <div style="width:62px; height:62px; border-radius:50%; background:var(--sage-tint); color:var(--deep-teal); font-size:30px; font-weight:800; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; border:2.5px solid var(--sage);"><svg class="svg-ic-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h2 style="font-size:23px; font-weight:800; color:var(--ink); margin-bottom:8px;">Assessment Completed</h2>
+          <p style="font-size:14px; color:var(--text-soft); max-width:500px; margin:0 auto 24px; line-height:1.6;">
+            You have already completed your adaptive competency quiz! Your technical score has been recorded and factored into your career recommendation and scorecard.
+          </p>
+
+          <div style="display:inline-flex; gap:24px; background:var(--surface); padding:18px 32px; border-radius:16px; margin-bottom:28px; border:1px solid var(--line);">
+            <div>
+              <div style="font-size:11.5px; color:var(--text-soft); font-weight:700;">SCORE</div>
+              <div style="font-size:26px; font-weight:800; color:var(--deep-teal); font-family:'JetBrains Mono',monospace;" id="completedScoreText">6 / 6</div>
+            </div>
+            <div style="width:1px; background:var(--line);"></div>
+            <div>
+              <div style="font-size:11.5px; color:var(--text-soft); font-weight:700;">PERCENTAGE</div>
+              <div style="font-size:26px; font-weight:800; color:var(--coral-dark); font-family:'JetBrains Mono',monospace;" id="completedPctText">100%</div>
+            </div>
+            <div style="width:1px; background:var(--line);"></div>
+            <div>
+              <div style="font-size:11.5px; color:var(--text-soft); font-weight:700;">STATUS</div>
+              <div style="font-size:16px; font-weight:700; color:var(--deep-teal); margin-top:5px;">Verified <svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:center; gap:12px;">
+            <button class="btn btn-cyan" onclick="goTo('psychometrics')">Continue to Interests &amp; Style →</button>
+            <button class="btn btn-ghost" onclick="goTo('recommendation')">View Career Matches →</button>
+          </div>
+        </div>
+
+        <!-- Active Quiz Container (Hidden once completed) -->
+        <div class="quiz-card" id="quizActiveContainer">
+          <div class="quiz-progress">
+            <div class="track"><div class="fill" id="quizFill" style="width:0%;"></div></div>
+            <span id="quizCount">Loading question...</span>
+          </div>
+          <div class="card" id="quizCardBody">
+            <div class="q-tag" id="qTag">ADAPTIVE SKILL EVALUATION</div>
+            <div class="q-text" id="qText">Loading your tailored questions...</div>
+            <div id="quizOptions"></div>
+            <div class="quiz-foot">
+              <button class="btn btn-ghost btn-sm" id="quizBackBtn" onclick="quizBack()">← Back</button>
+              <button class="btn btn-cyan btn-sm" id="quizNextBtn" onclick="quizNext()">Next Question →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN 5: INTERESTS & WORK-STYLE ===================== -->
+  <section class="screen" id="screen-psychometrics">
+    <div class="main-col">
+      <div class="topbar">
+        <div>
+          <h1>Career Interests &amp; Work-Style Profile</h1>
+          <p>Align recommendations with the activities and environments you thrive in</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button class="btn btn-ghost btn-sm" onclick="goTo('assessment')">← Assessment</button>
+          <button class="btn btn-cyan btn-sm" onclick="savePsychometrics()">Save &amp; View Recommendations →</button>
+        </div>
+      </div>
+      <div class="content">
+        <div class="grid-2">
+          <!-- Interests -->
+          <div class="card">
+            <h3>Career Interests &amp; Passions <span class="tag">Preferences</span></h3>
+            <p style="font-size:13px; color:var(--text-soft); margin-bottom:16px;">Select the activities that excite you most (select all that apply):</p>
+            <div class="grid-2-eq" style="gap:10px;" id="interestsContainer">
+              <label class="opt" style="cursor:pointer;"><input type="checkbox" name="interest" value="coding" checked style="width:auto;"> <span><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Software &amp; Coding</span></label>
+              <label class="opt" style="cursor:pointer;"><input type="checkbox" name="interest" value="designing" style="width:auto;"> <span><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 10 10 0 0 0 10-10"/></svg> UI/UX &amp; Design</span></label>
+              <label class="opt" style="cursor:pointer;"><input type="checkbox" name="interest" value="research" checked style="width:auto;"> <span><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg> Research &amp; AI Data</span></label>
+              <label class="opt" style="cursor:pointer;"><input type="checkbox" name="interest" value="business" style="width:auto;"> <span><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Business &amp; Analytics</span></label>
+              <label class="opt" style="cursor:pointer;"><input type="checkbox" name="interest" value="management" style="width:auto;"> <span><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Team Leadership</span></label>
+              <label class="opt" style="cursor:pointer;"><input type="checkbox" name="interest" value="teaching" style="width:auto;"> <span><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Mentorship &amp; Docs</span></label>
+            </div>
+          </div>
+
+          <!-- Personality Likert -->
+          <div class="card">
+            <h3>Work-Style &amp; Behavioral Persona <span class="tag">Traits</span></h3>
+            <p style="font-size:13px; color:var(--text-soft); margin-bottom:14px;">Indicate how closely each statement describes your ideal work mode:</p>
+
+            <div style="margin-bottom:14px;">
+              <label style="font-size:12.5px; font-weight:600;">1. "I enjoy leading teams and taking ownership of delivery."</label>
+              <select id="traitLeadership" class="field" style="margin-top:5px; padding:8px 12px; border-radius:8px; border:1px solid var(--line); width:100%;">
+                <option value="90">Strongly Agree (Leadership focus)</option>
+                <option value="75" selected>Agree</option>
+                <option value="60">Neutral</option>
+                <option value="40">Disagree</option>
+              </select>
+            </div>
+
+            <div style="margin-bottom:14px;">
+              <label style="font-size:12.5px; font-weight:600;">2. "I prefer deep technical architecture over client meetings."</label>
+              <select id="traitTechnical" class="field" style="margin-top:5px; padding:8px 12px; border-radius:8px; border:1px solid var(--line); width:100%;">
+                <option value="95" selected>Strongly Agree (Deep Technical)</option>
+                <option value="80">Agree</option>
+                <option value="60">Neutral</option>
+                <option value="40">Disagree</option>
+              </select>
+            </div>
+
+            <div style="margin-bottom:14px;">
+              <label style="font-size:12.5px; font-weight:600;">3. "I am passionate about aesthetics and user empathy."</label>
+              <select id="traitCreative" class="field" style="margin-top:5px; padding:8px 12px; border-radius:8px; border:1px solid var(--line); width:100%;">
+                <option value="90">Strongly Agree (Creative)</option>
+                <option value="70" selected>Agree</option>
+                <option value="50">Neutral</option>
+                <option value="30">Disagree</option>
+              </select>
+            </div>
+
+            <button class="btn btn-cyan btn-block" style="margin-top:10px;" onclick="savePsychometrics()">Save &amp; Recalculate Career Matches →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN 6: CAREER RECOMMENDATION & TWIN ===================== -->
+  <section class="screen" id="screen-recommendation">
+    <div class="main-col">
+      <div class="topbar">
+        <div>
+          <h1>Career Match &amp; Career Twin</h1>
+          <p>Transparent multi-factor calculation: Resume 40% + Assessment 35% + Interests 15% + Personality 10%</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button class="btn btn-ghost btn-sm" onclick="goTo('psychometrics')">← Work-Style</button>
+          <button class="btn btn-cyan btn-sm" onclick="goTo('dashboard')">View Score Dashboard →</button>
+        </div>
+      </div>
+      <div class="content">
+        <!-- Career Twin Card -->
+        <div class="twin-card">
+          <div class="eyebrow">YOUR PERSONALIZED CAREER TWIN</div>
+          <p id="careerTwinText">Complete your resume upload and assessment to synthesize your unique Career Twin.</p>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <div class="card" style="margin-bottom:16px;">
+              <h3>Top Ranked Career Matches <span class="tag">Suitability %</span></h3>
+              <div id="careerMatchesHolder">
+                <p style="font-size:12.5px;color:var(--text-soft);">No recommendations calculated yet.</p>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Transparent Weighted Methodology</h3>
+              <p style="font-size:13px; color:var(--text-soft); line-height:1.6;">
+                Every recommendation is calculated using an explainable multi-variable model:
+                <b>Resume Quality (40%)</b> + <b>Technical Assessment (35%)</b> + <b>Interest Analysis (15%)</b> + <b>Personality Traits (10%)</b>.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <div class="card" style="margin-bottom:16px;">
+              <h3>Next Steps in Your Journey</h3>
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <button class="btn btn-ghost btn-block" onclick="goTo('dashboard')"><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Career Score Dashboard</button>
+                <button class="btn btn-ghost btn-block" onclick="goTo('roadmap')"><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Skill Gap &amp; 8-Wk Roadmap</button>
+                <button class="btn btn-ghost btn-block" onclick="goTo('opportunities')"><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> Explore Matching Internships</button>
+                <button class="btn btn-cyan btn-block" onclick="goTo('interview')"><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg> Launch AI Mock Interview</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN 7: SCORE DASHBOARD ===================== -->
+  <section class="screen" id="screen-dashboard">
+    <div class="main-col">
+      <div class="topbar">
+        <div>
+          <h1>Employability Scorecard &amp; Radar Analytics</h1>
+          <p>Multi-dimensional competency breakdown across 6 technical and professional vectors</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button class="btn btn-ghost btn-sm" onclick="goTo('recommendation')">← Career Match</button>
+          <button class="btn btn-cyan btn-sm" onclick="goTo('roadmap')">Bridge Skill Gap →</button>
+        </div>
+      </div>
+      <div class="content">
+        <div class="grid-4" style="margin-bottom:18px;">
+          <div class="metric-card"><div class="label">Resume Strength</div><div class="num" id="dashResume">84%</div></div>
+          <div class="metric-card"><div class="label">Technical Skills</div><div class="num" id="dashTech">81%</div></div>
+          <div class="metric-card"><div class="label">Problem Solving</div><div class="num" id="dashProblem">90%</div></div>
+          <div class="metric-card"><div class="label">Overall Employability</div><div class="num" style="color:var(--deep-teal);" id="dashEmploy">82%</div></div>
+        </div>
+
+        <div class="grid-2-eq">
+          <div class="card">
+            <h3>Competency Radar Chart <span class="tag">6 Dimensions</span></h3>
+            <div style="max-height:280px; display:flex; align-items:center; justify-content:center;">
+              <canvas id="competencyRadarChart" style="max-height:270px;"></canvas>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Career Suitability Distribution <span class="tag">Top Roles</span></h3>
+            <div style="max-height:280px; display:flex; align-items:center; justify-content:center;">
+              <canvas id="careerBarChart" style="max-height:270px;"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN 8: SKILL GAP & 8-WEEK ROADMAP ===================== -->
+  <section class="screen" id="screen-roadmap">
+    <div class="main-col">
+      <div class="topbar">
+        <div>
+          <h1>Skill Gap Diagnostics &amp; 8-Week Roadmap</h1>
+          <p>Identify missing skills and follow structured 8-week milestones</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button class="btn btn-ghost btn-sm" onclick="goTo('dashboard')">← Dashboard</button>
+          <button class="btn btn-cyan btn-sm" onclick="goTo('opportunities')">Find Opportunities →</button>
+        </div>
+      </div>
+      <div class="content">
+        <div class="card" style="margin-bottom:20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+            <div>
+              <h3 style="margin-bottom:2px;">Target Career Role</h3>
+              <p style="font-size:12.5px; color:var(--text-soft);">Select a profession to inspect the tailored skill gap and 8-week curriculum.</p>
+            </div>
+            <select id="roadmapRoleSelect" onchange="onRoadmapRoleChange()" style="padding:9px 14px; border-radius:10px; border:1.5px solid var(--line); font-family:inherit; font-weight:600; font-size:13px; background:var(--surface-card);">
+              <option value="software-engineer">Software Engineer</option>
+              <option value="backend-engineer">Backend Engineer</option>
+              <option value="data-analyst">Data Analyst</option>
+              <option value="data-scientist">Data Scientist / ML Engineer</option>
+              <option value="ui-ux-designer">UI/UX Designer</option>
+              <option value="devops-engineer">DevOps &amp; Cloud Engineer</option>
+              <option value="qa-engineer">QA / Test Automation Engineer</option>
+              <option value="business-analyst">Business / Product Analyst</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Skill Gap -->
+          <div>
+            <div class="card" style="margin-bottom:16px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                <h3 style="margin-bottom:0;" id="skillGapHeading">Skill Gap Analysis</h3>
+                <span class="tag" id="estimatedPrepBadge">Est. Prep: 3–5 Months</span>
+              </div>
+              <div class="skillgap-col">
+                <div>
+                  <div style="font-size:12px; font-weight:700; color:var(--deep-teal); margin-bottom:6px;">YOU HAVE (MATCHED)</div>
+                  <ul class="sg-list have" id="skillsHaveList"></ul>
+                </div>
+                <div>
+                  <div style="font-size:12px; font-weight:700; color:var(--coral-dark); margin-bottom:6px;">MISSING (TO LEARN)</div>
+                  <ul class="sg-list missing" id="skillsMissingList"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8-Week Roadmap -->
+          <div>
+            <div class="card">
+              <h3>Personalized 8-Week Roadmap <span class="tag">Weekly Milestones</span></h3>
+              <div id="roadmapItemsHolder"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN 9: OPPORTUNITY HUB ===================== -->
+  <section class="screen" id="screen-opportunities">
+    <div class="main-col">
+      <div class="topbar">
+        <div>
+          <h1>Opportunity Hub</h1>
+          <p>Curated internships, full-time jobs, hackathons, and certifications</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button class="btn btn-ghost btn-sm" onclick="goTo('roadmap')">← Roadmap</button>
+          <button class="btn btn-cyan btn-sm" onclick="goTo('interview')">Prepare with Mock Interview →</button>
+        </div>
+      </div>
+      <div class="content">
+        <div class="card" style="margin-bottom:18px;">
+          <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+            <input type="text" id="oppSearchInput" placeholder="Search by role, company, or skill (e.g. Google, Python, React)..." style="flex:1; min-width:240px; padding:10px 14px; border-radius:10px; border:1.5px solid var(--line); font-size:13.5px;" oninput="filterOpportunities()">
+            <div class="filter-pills" style="margin-bottom:0;">
+              <button class="filter-pill active" onclick="setOppType('all', this)">All</button>
+              <button class="filter-pill" onclick="setOppType('Internship', this)">Internships</button>
+              <button class="filter-pill" onclick="setOppType('Full-time', this)">Jobs</button>
+              <button class="filter-pill" onclick="setOppType('Hackathon', this)">Hackathons</button>
+              <button class="filter-pill" onclick="setOppType('Certification', this)">Certifications</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="opportunitiesGrid" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN 10: AI MOCK INTERVIEW STUDIO ===================== -->
+  <section class="screen" id="screen-interview">
+    <div class="main-col">
+      <div class="topbar">
+        <div>
+          <h1>AI Mock Interview Studio</h1>
+          <p>Role-tailored technical &amp; behavioral simulator with 4 readiness scores &amp; feedback</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button class="btn btn-ghost btn-sm" onclick="goTo('opportunities')">← Opportunities</button>
+          <button class="btn btn-cyan btn-sm" onclick="goTo('uploads')">Connected Profiles →</button>
+        </div>
+      </div>
+      <div class="content">
+        <div class="grid-2">
+          <div>
+            <div class="card" style="margin-bottom:16px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <h3 style="margin-bottom:0;">Mock Interview Session</h3>
+                <select id="interviewCareerSelect" onchange="startNewInterview()" style="padding:6px 12px; border-radius:8px; border:1px solid var(--line); font-size:12.5px; font-weight:600;">
+                  <option value="software-engineer">Software Engineer</option>
+                  <option value="backend-engineer">Backend Engineer</option>
+                  <option value="data-analyst">Data Analyst</option>
+                  <option value="data-scientist">Data Scientist</option>
+                  <option value="ui-ux-designer">UI/UX Designer</option>
+                  <option value="devops-engineer">DevOps Engineer</option>
+                </select>
+              </div>
+
+              <div class="interview-box">
+                <div class="interview-prompt">
+                  <h4 id="interviewTypeBadge">QUESTION 1 · BEHAVIORAL</h4>
+                  <p id="interviewQuestionText">Tell me about yourself, your background, and your favorite project.</p>
+                </div>
+
+                <div class="field">
+                  <label style="display:flex; justify-content:space-between;">
+                    <span>Your Response</span>
+                    <button type="button" class="text-link-btn" id="voiceDictateBtn" onclick="toggleVoiceDictation()" style="display:inline-flex; align-items:center; gap:6px;">
+    <svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+    <span id="voiceDictateLabel">Speak Response</span>
+    <span class="audio-wave-box" id="audioWaveBox" style="display:none;">
+      <span class="audio-bar"></span><span class="audio-bar"></span><span class="audio-bar"></span><span class="audio-bar"></span><span class="audio-bar"></span>
+    </span>
+  </button>
+                  </label>
+                  <textarea id="interviewAnswerText" class="interview-answer" placeholder="Structure your answer using the STAR method (Situation, Task, Action, Result)..."></textarea>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px;">
+                  <span style="font-size:12px; color:var(--text-soft);" id="interviewStepCount">Question 1 of 5</span>
+                  <button class="btn btn-cyan btn-sm" id="interviewSubmitBtn" onclick="submitInterviewAnswer()">Submit Answer &amp; Continue →</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Readiness Scores -->
+          <div>
+            <div class="card" id="interviewResultsCard">
+              <h3>Interview Readiness Scores <span class="tag">AI Evaluated</span></h3>
+              <div class="grid-2-eq" style="gap:10px; margin-bottom:16px;">
+                <div class="score-gauge"><div class="val" id="intTechScore">—</div><div class="name">Technical</div></div>
+                <div class="score-gauge"><div class="val" id="intCommScore">—</div><div class="name">Communication</div></div>
+                <div class="score-gauge"><div class="val" id="intConfScore">—</div><div class="name">Confidence</div></div>
+                <div class="score-gauge"><div class="val" style="color:var(--deep-teal);" id="intReadyScore">—</div><div class="name">Overall Readiness</div></div>
+              </div>
+              <div style="font-size:12.5px; font-weight:600; margin-bottom:6px;">Evaluator Feedback:</div>
+              <div id="interviewFeedbackHolder" style="font-size:12.5px; color:var(--text-soft); line-height:1.6;">
+                Answer the mock questions to generate instant feedback and scoring.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN 11: CONNECTED PROFILES (Validated, No AI Analysis) ===================== -->
+  <section class="screen" id="screen-uploads">
+    <div class="main-col">
+      <div class="topbar">
+        <div>
+          <h1>Connected Profiles</h1>
+          <p>Save your public LinkedIn, GitHub, and portfolio links directly to your student profile</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button class="btn btn-ghost btn-sm" onclick="goTo('interview')">← Mock Interview</button>
+          <button class="btn btn-cyan btn-sm" onclick="goTo('profile')">Continue to Profile →</button>
+        </div>
+      </div>
+      <div class="content">
+        <div class="grid-2">
+          <div class="card">
+            <h3>Save your profile links</h3>
+            <div id="connectedProfilesBanner" class="auth-banner" style="display:none;"></div>
+
+            <div class="field">
+              <label>LinkedIn Profile URL</label>
+              <input type="url" id="linkedinUrl" placeholder="https://linkedin.com/in/yourname">
+              <p class="field-hint" id="linkedinHint">Format: https://linkedin.com/in/yourname (or leave empty)</p>
+            </div>
+
+            <div class="field">
+              <label>GitHub Profile URL</label>
+              <input type="url" id="githubUrl" placeholder="https://github.com/yourname">
+              <p class="field-hint" id="githubHint">Format: https://github.com/yourname (or leave empty)</p>
+            </div>
+
+            <div class="field">
+              <label>Portfolio / Other Platform URL</label>
+              <input type="url" id="otherUrl" placeholder="https://yourportfolio.com (or Kaggle, Behance, etc.)">
+              <p class="field-hint" id="otherHint">Must start with https:// or http:// (or leave empty)</p>
+            </div>
+
+            <button class="btn btn-cyan btn-block" id="saveProfilesBtn" onclick="saveConnectedProfiles()">Save Profile Links →</button>
+          </div>
+
+          <div>
+            <div class="card">
+              <h3>Profile Synchronization</h3>
+              <p style="font-size:13px; color:var(--text-soft); line-height:1.65; margin-bottom:14px;">
+                Adding your links keeps your active portfolios centralized on your student profile. You can update, add, or clear any link at any time.
+              </p>
+              <div style="font-size:12.5px; color:var(--ink); line-height:1.7;">
+                <div style="margin-bottom:8px;"><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> <b>LinkedIn:</b> Links your professional summary and education credentials.</div>
+                <div style="margin-bottom:8px;"><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> <b>GitHub:</b> Showcases your live coding projects and public repositories.</div>
+                <div><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> <b>Portfolio:</b> Highlights deployed apps, case studies, and live demonstrations.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN 12: USER PROFILE ===================== -->
+  <section class="screen" id="screen-profile">
+    <div class="main-col">
+      <div class="topbar">
+        <div>
+          <h1>Student Profile</h1>
+          <p>Your resume, scores, and complete career history in one place</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <button class="btn btn-ghost btn-sm" onclick="editProfile()"><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit Profile</button>
+          <button class="btn btn-cyan btn-sm" onclick="goTo('resume')">Upload Resume →</button>
+        </div>
+      </div>
+      <div class="content">
+        <div class="card">
+          <div class="profile-head">
+            <div class="av-lg" id="profileAvatarLg">CC</div>
+            <div>
+              <h2 id="profileNameHeading">Your Profile</h2>
+              <p id="profileEmailLine">Log in to load your profile</p>
+              <div class="badge-row" id="profileBadges">
+                <span class="badge">Profile synced</span>
+              </div>
+            </div>
+          </div>
+          <div class="grid-3">
+            <div class="card" style="border:none; padding:16px 0 0;">
+              <h3>Resume Strength</h3>
+              <div class="skill-row">
+                <span class="name">ATS Score</span>
+                <div class="track"><div class="fill" id="atsScoreFill" style="width:0%"></div></div>
+                <span class="val" id="atsScoreValue">—</span>
+              </div>
+            </div>
+            <div class="card" style="border:none; padding:16px 0 0;">
+              <h3>Assessment</h3>
+              <div class="skill-row">
+                <span class="name">Technical</span>
+                <div class="track"><div class="fill" id="technicalScoreFill" style="width:0%"></div></div>
+                <span class="val" id="technicalScoreValue">—</span>
+              </div>
+            </div>
+            <div class="card" style="border:none; padding:16px 0 0;">
+              <h3>Interview Readiness</h3>
+              <div class="skill-row">
+                <span class="name">Overall</span>
+                <div class="track"><div class="fill" id="readinessScoreFill" style="width:0%"></div></div>
+                <span class="val" id="readinessScoreValue">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:16px;">
+          <div class="card">
+            <h3>Saved Resumes</h3>
+            <div id="profileResumeCount" style="font-size:13px;color:var(--text-soft);">0 resumes stored in your account.</div>
+          </div>
+          <div class="card">
+            <h3>Career Recommendation</h3>
+            <div id="profileCareerSummary" style="font-size:13px;line-height:1.6;color:var(--text-soft);">
+              Complete your resume and assessment to generate your recommendation.
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:16px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <h3 style="margin:0;">Connected Profiles &amp; Portfolios</h3>
+            <button class="btn btn-ghost btn-sm" onclick="goTo('uploads')"><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Manage Links</button>
+          </div>
+          <div class="grid-3" style="gap:14px;" id="profileConnectedLinksHolder">
+            <div style="background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px;">
+              <div style="font-size:12px; font-weight:700; color:var(--deep-teal); margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+                <svg class="svg-ic-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg> LinkedIn
+              </div>
+              <div id="profLinkedinDisplay" style="font-size:12.5px; word-break:break-all; color:var(--text-soft); font-style:italic;">(Empty)</div>
+            </div>
+            <div style="background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px;">
+              <div style="font-size:12px; font-weight:700; color:var(--deep-teal); margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+                <svg class="svg-ic-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg> GitHub
+              </div>
+              <div id="profGithubDisplay" style="font-size:12.5px; word-break:break-all; color:var(--text-soft); font-style:italic;">(Empty)</div>
+            </div>
+            <div style="background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px;">
+              <div style="font-size:12px; font-weight:700; color:var(--deep-teal); margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+                <svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Portfolio / Other
+              </div>
+              <div id="profOtherDisplay" style="font-size:12.5px; word-break:break-all; color:var(--text-soft); font-style:italic;">(Empty)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN: EDIT PROFILE ===================== -->
+  <section class="screen" id="screen-editprofile">
+    <div class="main-col">
+      <div class="topbar">
+        <div>
+          <h1>Edit Profile</h1>
+          <p>Update your details, links, and documents</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <button class="btn btn-ghost btn-sm" onclick="goTo('profile')">Cancel</button>
+          <button class="btn btn-cyan btn-sm" onclick="saveProfileChanges()">Save Changes</button>
+        </div>
+      </div>
+      <div class="content">
+        <div class="grid-2">
+          <div>
+            <div class="card" style="margin-bottom:16px;">
+              <h3>Basic Information</h3>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                <div class="field"><label>First name</label><input type="text" id="epFirstName"></div>
+                <div class="field"><label>Last name</label><input type="text" id="epLastName"></div>
+              </div>
+              <div class="field" style="margin-bottom:0;"><label>Email address</label><input type="email" id="epEmail" disabled></div>
+            </div>
+
+            <div class="card" style="margin-bottom:16px;">
+              <h3>Linked Profiles</h3>
+              <div class="field"><label>LinkedIn</label><input type="url" id="epLinkedin" placeholder="https://linkedin.com/in/yourname"></div>
+              <div class="field"><label>GitHub</label><input type="url" id="epGithub" placeholder="https://github.com/yourname"></div>
+              <div class="field" style="margin-bottom:0;"><label>Other profile</label><input type="url" id="epOther" placeholder="Portfolio, Kaggle, etc."></div>
+            </div>
+
+            <div class="card" style="margin-bottom:16px;">
+              <h3>Hobbies</h3>
+              <div class="tag-input-row"><input type="text" id="hobbyInput" placeholder="e.g. Chess, Photography" onkeydown="if(event.key==='Enter'){event.preventDefault(); addTag('hobby');}"><button class="btn btn-ghost btn-sm" type="button" onclick="addTag('hobby')">Add</button></div>
+              <div class="tag-list" id="hobbyList"></div>
+            </div>
+
+            <div class="card" style="margin-bottom:16px;">
+              <h3>Skills</h3>
+              <div class="tag-input-row"><input type="text" id="skillInput" placeholder="e.g. Python, Figma" onkeydown="if(event.key==='Enter'){event.preventDefault(); addTag('skill');}"><button class="btn btn-ghost btn-sm" type="button" onclick="addTag('skill')">Add</button></div>
+              <div class="tag-list" id="skillList"></div>
+            </div>
+
+            <div class="card" style="margin-bottom:16px;">
+              <h3>Notes</h3>
+              <div class="field" style="margin-bottom:0;"><label>Personal career notes</label><textarea id="epNotes" placeholder="Reminders, target dream companies, interview prep notes..."></textarea></div>
+            </div>
+
+            <div class="card">
+              <h3>Resumes</h3>
+              <div class="dropzone" id="resumeDropzone2" onclick="document.getElementById('resume-file-input-2').click()" style="padding:24px 16px;">
+                <div class="ic" style="width:40px; height:40px; margin:0 auto 8px;"><svg class="svg-ic-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg></div>
+                <h3 style="font-size:13.5px; margin-bottom:2px;">Add another resume</h3>
+                <p style="margin-bottom:0;">PDF or DOCX up to 5MB</p>
+              </div>
+              <input type="file" id="resume-file-input-2" accept=".pdf,.docx" style="display:none;">
+              <div id="resumeListHolder" style="margin-top:14px;"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="card" style="text-align:center; position:sticky; top:80px;">
+              <h3 style="justify-content:center;">Profile Photo</h3>
+              <div class="avatar-upload" id="avatarPreview">CC</div>
+              <input type="file" id="avatarInput" accept="image/*" style="display:none;">
+              <button class="btn btn-ghost btn-sm btn-block" type="button" onclick="document.getElementById('avatarInput').click()">Upload Photo</button>
+              <button class="btn btn-ghost btn-sm btn-block" type="button" style="margin-top:8px; color:var(--red); border-color:#F3C9C4;" onclick="removeAvatar()">Remove Photo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </div><!-- /page-area -->
+</div><!-- /app-wrapper -->
+
+<!-- Modal for CSV Preview (Preview Table Only, No Download Button) -->
+<div class="modal-backdrop" id="csvPreviewModal" onclick="closeCsvModal(event)">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <h3 id="csvModalTitle">Template Preview</h3>
+      <button class="btn btn-ghost btn-sm" onclick="closeCsvModal()"><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Close</button>
+    </div>
+    <div class="modal-body">
+      <div style="overflow-x:auto;">
+        <table class="preview-table" id="csvPreviewTable"></table>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost btn-sm" onclick="closeCsvModal()">Close Preview</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------------- Backend Connection & Authentication ---------------- */
+const API_BASE = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1')
+  ? 'http://localhost:5000/api'
+  : '/api';
+
+let authToken = null;
+try { authToken = localStorage.getItem('cc_token'); } catch(e) {}
+
+function saveToken(token){
+  authToken = token;
+  try { localStorage.setItem('cc_token', token); } catch(e) {}
+}
+function clearToken(){
+  authToken = null;
+  resetClientProfile();
+  try { localStorage.removeItem('cc_token'); localStorage.removeItem('cc_email'); } catch(e) {}
+}
+
+async function apiFetch(path, options = {}){
+  const headers = Object.assign({}, options.headers);
+  if(authToken) headers['Authorization'] = 'Bearer ' + authToken;
+  if(!(options.body instanceof FormData)) headers['Content-Type'] = 'application/json';
+
+  let res;
+  try{
+    res = await fetch(API_BASE + path, Object.assign({}, options, { headers }));
+  }catch(networkErr){
+    const err = new Error('Could not reach backend at ' + API_BASE + '. Ensure server is running.');
+    err.isNetworkError = true;
+    throw err;
+  }
+
+  const data = await res.json().catch(()=>({}));
+  if(!res.ok){
+    const err = new Error(data.error || ('Request failed (' + res.status + ')'));
+    err.status = res.status;
+    throw err;
+  }
+  return data;
+}
+
+function fileUrl(path){
+  if(!path) return null;
+  return path.startsWith('http') ? path : API_BASE.replace(/\/api$/, '') + path;
+}
+
+/* ---------------- Logged-In Flow (Starts from Resume Upload) ---------------- */
+const loggedInFlow = [
+  {id:'resume', label:'Resume Upload', ic:'<svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>'},
+  {id:'assessment', label:'Adaptive Quiz', ic:'<svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/></svg>'},
+  {id:'psychometrics', label:'Interests & Style', ic:'<svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>'},
+  {id:'recommendation', label:'Career Match & Twin', ic:'<svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>'},
+  {id:'dashboard', label:'Scorecard Dashboard', ic:'<svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>'},
+  {id:'roadmap', label:'Skill Gap & Roadmap', ic:'<svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>'},
+  {id:'opportunities', label:'Opportunity Hub', ic:'<svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>'},
+  {id:'interview', label:'Mock Interview Studio', ic:'<svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>'},
+  {id:'uploads', label:'Connected Profiles', ic:'<svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>'},
+  {id:'profile', label:'Profile', ic:'<svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>'}
+];
+
+let currentScreenId = 'landing';
+
+function renderSidebar(){
+  const el = document.getElementById('globalSidebar');
+  const loggedIn = Boolean(authToken);
+
+  // Requirement: Sidebar MUST NOT be visible until user logs in!
+  if (!loggedIn) {
+    el.style.display = 'none';
+    return;
+  }
+
+  // Sidebar starts directly from Resume Upload onwards
+  el.style.display = 'flex';
+  let html = `<div class="brand-logo-wrap" style="justify-content:center;">
+  <img src="/images/logo-dark.png" alt="Career Companion" class="brand-logo-img logo-dark-variant" style="height:38px;">
+  <img src="/images/logo-light.png" alt="Career Companion" class="brand-logo-img logo-light-variant" style="height:38px;">
+</div>`;
+  
+  loggedInFlow.forEach((f, i) => {
+    const isActive = (f.id === currentScreenId);
+    const cls = 'nav-item' + (isActive ? ' active' : '');
+    html += `<button class="${cls}" onclick="goTo('${f.id}')"><span class="ic">${f.ic}</span>${f.label}<span class="step-badge">${String(i+1).padStart(2,'0')}</span></button>`;
+    if(f.id === 'psychometrics' || f.id === 'interview') html += `<div class="nav-divider"></div>`;
+  });
+
+  const avatarStyle = userProfile.avatarDataUrl ? `style="background-image:url('${userProfile.avatarDataUrl}'); background-size:cover; background-position:center;"` : '';
+  const avatarLabel = userProfile.avatarDataUrl ? '' : initials();
+  html += `<div class="sidebar-foot">
+    <div style="padding: 0 4px 10px 4px;">
+      <button class="theme-toggle-btn" type="button" onclick="toggleTheme()" style="width:100%; justify-content:center;" title="Switch Light / Dark Theme">
+        <span class="theme-ic-holder"></span>
+        <span class="theme-label-holder">Theme</span>
+      </button>
+    </div>
+    <button class="user-chip" id="userChipBtn" onclick="toggleUserMenu(event)">
+      <div class="av" ${avatarStyle}>${avatarLabel}</div>
+      <div class="who"><b>${userProfile.firstName || 'Student'} ${userProfile.lastName || ''}</b><span>Final Year BCA</span></div>
+      <span class="chevron">▲</span>
+    </button>
+    <div class="user-menu" id="userMenu">
+      <button onclick="editProfile()"><span><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span> Edit profile</button>
+      <button onclick="switchAccount()"><span><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M17 11l2 2 4-4"/></svg></span> Switch account</button>
+      <div class="menu-divider"></div>
+      <button class="danger" onclick="logoutUser()"><span><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span> Logout</button>
+    </div>
+  </div>`;
+  el.innerHTML = html;
+}
+
+function goTo(id){
+  // Requirement: Logged-in users CANNOT navigate back to Home Page or Login screen!
+  if (authToken && (id === 'landing' || id === 'login')) {
+    id = 'resume';
+  }
+
+  currentScreenId = id;
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById('screen-' + id);
+  if (target) target.classList.add('active');
+
+  renderSidebar();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+
+  if(id === 'assessment') loadAssessment();
+  if(id === 'dashboard') initDashboardCharts();
+  if(id === 'opportunities') loadOpportunities();
+  if(id === 'roadmap') updateRoadmapDisplay();
+  if(id === 'interview') loadInterviewQuestion();
+  if(id === 'uploads') initConnectedProfilesScreen();
+}
+
+function showScreen(id){
+  // For pre-login navigation (Home Page / Login / Forgot)
+  if (authToken && (id === 'landing' || id === 'login')) {
+    goTo('resume');
+    return;
+  }
+  currentScreenId = id;
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById('screen-' + id);
+  if (target) target.classList.add('active');
+  renderSidebar();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+/* ---------------- User Profile State ---------------- */
+let userProfile = {
+  firstName: '', lastName: '', email: '',
+  linkedin: '', github: '', other: '',
+  hobbies: [], skills: [], notes: '',
+  resumes: [],
+  avatarDataUrl: null,
+  atsScore: null,
+  technicalScore: null,
+  interviewReadinessScore: null,
+  assessment: null,
+  interestAnalysis: null,
+  personalityAssessment: null,
+  careerRecommendation: null,
+  careerScoreDashboard: null
+};
+
+function resetClientProfile(){
+  userProfile = {
+    firstName: '', lastName: '', email: '',
+    linkedin: '', github: '', other: '',
+    hobbies: [], skills: [], notes: '',
+    resumes: [], avatarDataUrl: null,
+    atsScore: null, technicalScore: null,
+    interviewReadinessScore: null,
+    assessment: null, interestAnalysis: null,
+    personalityAssessment: null, careerRecommendation: null,
+    careerScoreDashboard: null
+  };
+}
+
+function applyServerUser(user){
+  userProfile.firstName = user.firstName || '';
+  userProfile.lastName = user.lastName || '';
+  userProfile.email = user.email || '';
+  userProfile.linkedin = user.linkedin || '';
+  userProfile.github = user.github || '';
+  userProfile.other = user.otherProfile || '';
+  userProfile.hobbies = Array.isArray(user.hobbies) ? user.hobbies.slice() : [];
+  userProfile.skills = Array.isArray(user.skills) ? user.skills.slice() : [];
+  userProfile.notes = user.notes || '';
+  userProfile.resumes = (user.resumes || []).map(r => ({
+    id: r._id,
+    name: r.fileName,
+    size: (r.sizeKb || 0) + ' KB',
+    url: fileUrl(r.fileUrl),
+    analysis: r.analysis || null,
+  }));
+  userProfile.avatarDataUrl = fileUrl(user.avatarUrl) || null;
+  userProfile.atsScore = typeof user.atsScore === 'number' ? user.atsScore : null;
+  userProfile.technicalScore = typeof user.technicalScore === 'number' ? user.technicalScore : null;
+  userProfile.interviewReadinessScore = typeof user.interviewReadinessScore === 'number' ? user.interviewReadinessScore : null;
+  userProfile.assessment = user.assessment || null;
+  userProfile.interestAnalysis = user.interestAnalysis || null;
+  userProfile.personalityAssessment = user.personalityAssessment || null;
+  userProfile.careerRecommendation = user.careerRecommendation || null;
+  userProfile.careerScoreDashboard = user.careerScoreDashboard || null;
+
+  const resumeNext = document.getElementById('resumeNextBtn');
+  if (resumeNext) resumeNext.disabled = userProfile.resumes.length === 0;
+
+  const resumes = user.resumes || [];
+  const latestResume = resumes.length ? resumes[resumes.length - 1] : null;
+  const latestAnalysis = latestResume?.analysis;
+
+  if (latestAnalysis && !latestAnalysis.error) {
+    renderExtractedInfo(latestAnalysis);
+    renderAtsFeedback(latestAnalysis);
+  } else {
+    clearExtractedInfo();
+  }
+
+  renderRecommendation();
+  renderProfileSummary();
+  updateRoadmapDisplay();
+}
+
+function initials(){
+  return ((userProfile.firstName[0]||'') + (userProfile.lastName[0]||'')).toUpperCase() || 'CC';
+}
+
+function showToast(msg){
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  requestAnimationFrame(()=>t.classList.add('show'));
+  setTimeout(()=>{ t.classList.remove('show'); setTimeout(()=>t.remove(), 250); }, 2200);
+}
+
+/* ---------------- Auth & Password Handling ---------------- */
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PASSWORD_RE = /^(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>_\-+=~`[\]/\\]).{8,}$/;
+const NAME_RE = /^[a-zA-Z_]+$/;
+function isValidEmail(v){ return EMAIL_RE.test(v.trim()); }
+function isValidPassword(v){ return PASSWORD_RE.test(v); }
+function isValidName(v){ return !!v && NAME_RE.test(String(v).trim()); }
+let authMode = 'login';
+
+function setFieldState(inputEl, hintEl, state, message){
+  inputEl.classList.remove('valid','invalid');
+  if(hintEl) hintEl.classList.remove('valid','error');
+  if(state === 'valid'){ inputEl.classList.add('valid'); if(hintEl) hintEl.classList.add('valid'); }
+  else if(state === 'invalid'){ inputEl.classList.add('invalid'); if(hintEl) hintEl.classList.add('error'); }
+  if(hintEl && message) hintEl.textContent = message;
+}
+
+function showAuthBanner(type, message){
+  const el = document.getElementById('authBanner');
+  if(!el) return;
+  el.className = 'auth-banner ' + type;
+  el.textContent = message;
+  el.style.display = 'block';
+}
+function hideAuthBanner(){
+  const el = document.getElementById('authBanner');
+  if(el) el.style.display = 'none';
+}
+
+const emailInput = document.getElementById('loginEmail');
+const passwordInput = document.getElementById('loginPassword');
+const emailHint = document.getElementById('emailHint');
+const passwordHint = document.getElementById('passwordHint');
+
+emailInput.addEventListener('input', ()=>{
+  hideAuthBanner();
+  const v = emailInput.value.trim();
+  if(v.length === 0){ setFieldState(emailInput, emailHint, 'neutral', 'Enter a valid email address (e.g. name@example.com)'); return; }
+  if(isValidEmail(v)) setFieldState(emailInput, emailHint, 'valid', 'Looks good');
+  else setFieldState(emailInput, emailHint, 'invalid', 'Enter a valid email address');
+});
+
+passwordInput.addEventListener('input', ()=>{
+  hideAuthBanner();
+  const v = passwordInput.value;
+  if(v.length === 0){ setFieldState(passwordInput, passwordHint, 'neutral', 'Minimum 8 characters, at least one number and one special character (e.g. Career@123)'); return; }
+  if(isValidPassword(v)) setFieldState(passwordInput, passwordHint, 'valid', 'Password meets criteria');
+  else setFieldState(passwordInput, passwordHint, 'invalid', 'Must be 8+ chars and include at least one number and one special character (e.g. Career@123)');
+});
+
+function toggleAuthMode(mode){
+  authMode = mode || (authMode === 'login' ? 'register' : 'login');
+  const register = authMode === 'register';
+  document.getElementById('authHeading').textContent = register ? 'Create student account' : 'Welcome back';
+  document.getElementById('authSub').textContent = register ? 'Sign up to start your guided career evaluation' : 'Log in to continue your career journey';
+  document.getElementById('registerFields').style.display = register ? 'block' : 'none';
+  document.getElementById('confirmPasswordField').style.display = register ? 'block' : 'none';
+  document.getElementById('loginMeta').style.display = register ? 'none' : 'flex';
+  document.getElementById('loginSubmitBtn').textContent = register ? 'Create Account →' : 'Log In →';
+  document.getElementById('authSwitchText').innerHTML = register
+    ? 'Already have an account? <button type="button" class="text-link-btn" onclick="toggleAuthMode(\'login\')">Log in</button>'
+    : 'New student? <button type="button" class="text-link-btn" onclick="toggleAuthMode(\'register\')">Create an account</button>';
+  hideAuthBanner();
+}
+
+function togglePasswordVisibility(){
+  const input = document.getElementById('loginPassword');
+  const btn = document.getElementById('togglePasswordBtn');
+  const showing = input.type === 'text';
+  input.type = showing ? 'password' : 'text';
+  btn.innerHTML = showing 
+    ? '<svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>'
+    : '<svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+}
+
+async function handleLogin(){
+  if(authMode === 'register') return handleRegister();
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+  if(!isValidEmail(email) || !isValidPassword(password)){
+    showAuthBanner('error', 'Please enter a valid email and matching password.');
+    return;
+  }
+  const btn = document.getElementById('loginSubmitBtn');
+  btn.disabled = true; btn.textContent = 'Signing in…';
+  try{
+    const data = await apiFetch('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) });
+    saveToken(data.token);
+    try{ localStorage.setItem('cc_email', email); }catch(e){}
+    applyServerUser(data.user);
+    showToast('Signed in successfully');
+    // Navigate straight to Resume Upload and reveal sidebar
+    goTo('resume');
+  }catch(err){
+    showAuthBanner('error', err.message || 'Login failed. Please check credentials.');
+  }finally{
+    btn.disabled = false; btn.textContent = 'Log In →';
+  }
+}
+
+async function handleRegister(){
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+  const firstName = document.getElementById('registerFirstName').value.trim();
+  const lastName = document.getElementById('registerLastName').value.trim();
+  const confirm = document.getElementById('confirmPassword').value;
+
+  if(!firstName || !lastName){
+    showAuthBanner('error', 'First name and second name are required.');
+    return;
+  }
+  if(!isValidName(firstName) || !isValidName(lastName)){
+    showAuthBanner('error', 'First name and second name can only contain letters and underscore (_), and cannot contain numbers or other special characters.');
+    return;
+  }
+  if(!isValidEmail(email) || !isValidPassword(password)){
+    showAuthBanner('error', 'Please verify your email and password requirements.');
+    return;
+  }
+  if(password !== confirm){
+    showAuthBanner('error', 'Passwords do not match.');
+    return;
+  }
+
+  const btn = document.getElementById('loginSubmitBtn');
+  btn.disabled = true; btn.textContent = 'Creating account…';
+  try{
+    const data = await apiFetch('/auth/register', { method: 'POST', body: JSON.stringify({ email, password, firstName, lastName }) });
+    saveToken(data.token);
+    try{ localStorage.setItem('cc_email', email); }catch(e){}
+    applyServerUser(data.user);
+    showToast('Account created!');
+    goTo('resume');
+  }catch(err){
+    showAuthBanner('error', err.message || 'Registration failed.');
+  }finally{
+    btn.disabled = false; btn.textContent = 'Create Account →';
+  }
+}
+
+function showForgotPassword(){
+  document.getElementById('forgotEmail').value = emailInput.value.trim();
+  showScreen('forgot');
+}
+
+async function requestPasswordReset(){
+  const email = document.getElementById('forgotEmail').value.trim();
+  const banner = document.getElementById('forgotBanner');
+  if(!isValidEmail(email)){
+    banner.className = 'auth-banner error'; banner.textContent = 'Please enter a valid email.'; banner.style.display = 'block';
+    return;
+  }
+  try{
+    const data = await apiFetch('/auth/forgot-password', { method: 'POST', body: JSON.stringify({ email }) });
+    if(data.resetToken){
+      document.getElementById('resetToken').value = data.resetToken;
+      showScreen('reset');
+      showToast('Dev reset token applied');
+    } else {
+      banner.className = 'auth-banner success'; banner.textContent = data.message; banner.style.display = 'block';
+    }
+  }catch(err){
+    banner.className = 'auth-banner error'; banner.textContent = err.message; banner.style.display = 'block';
+  }
+}
+
+async function resetPassword(){
+  const token = document.getElementById('resetToken').value.trim();
+  const password = document.getElementById('resetPassword').value;
+  const confirm = document.getElementById('resetPasswordConfirm').value;
+  const banner = document.getElementById('resetBanner');
+
+  if(!isValidPassword(password) || password !== confirm){
+    banner.className = 'auth-banner error'; banner.textContent = 'Passwords do not match or do not meet requirements.'; banner.style.display = 'block';
+    return;
+  }
+  try{
+    const data = await apiFetch('/auth/reset-password', { method: 'POST', body: JSON.stringify({ token, password }) });
+    saveToken(data.token);
+    applyServerUser(data.user);
+    showToast('Password updated');
+    goTo('resume');
+  }catch(err){
+    banner.className = 'auth-banner error'; banner.textContent = err.message; banner.style.display = 'block';
+  }
+}
+
+function continueWithGoogle(){
+  window.location.href = API_BASE + '/auth/google';
+}
+
+function escapeHtml(value){
+  return String(value ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+
+/* ---------------- Resume Drag & Drop & Upload ---------------- */
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('resume-file-input');
+
+['dragenter','dragover'].forEach(ev=>dropzone.addEventListener(ev,e=>{e.preventDefault(); dropzone.classList.add('drag');}));
+['dragleave','drop'].forEach(ev=>dropzone.addEventListener(ev,e=>{e.preventDefault(); dropzone.classList.remove('drag');}));
+dropzone.addEventListener('drop', e=>{ const f = e.dataTransfer.files[0]; if(f) uploadResume(f); });
+fileInput.addEventListener('change', e=>{ const f = e.target.files[0]; if(f) uploadResume(f); });
+
+async function uploadResume(file){
+  if (!file) return;
+  goTo('resume');
+  clearExtractedInfo();
+
+  const fileChipHolder = document.getElementById('fileChipHolder');
+  const track = document.getElementById('progressTrack');
+  const fill = document.getElementById('progressFill');
+  const nextButton = document.getElementById('resumeNextBtn');
+
+  fileChipHolder.innerHTML = `
+    <div class="file-chip">
+      <div class="ic">CV</div>
+      <div class="info">
+        <b>${escapeHtml(file.name)}</b>
+        <span id="uploadStatus">Uploading and running AI parsing…</span>
+      </div>
+    </div>
+  `;
+  track.style.display = 'block';
+  fill.style.width = '0%';
+  nextButton.disabled = true;
+
+  let pct = 0;
+  const timer = setInterval(() => {
+    if (pct < 88) { pct += 6; fill.style.width = pct + '%'; }
+  }, 180);
+
+  try {
+    const form = new FormData();
+    form.append('resume', file);
+    const data = await apiFetch('/users/me/resumes', { method: 'POST', body: form });
+
+    clearInterval(timer);
+    fill.style.width = '100%';
+
+    applyServerUser(data.user);
+    const statusEl = document.getElementById('uploadStatus');
+    if (statusEl) statusEl.textContent = 'AI parsing & ATS evaluation completed';
+    showToast('Resume parsed successfully!');
+    nextButton.disabled = false;
+  } catch (err) {
+    clearInterval(timer);
+    fill.style.width = '0%';
+    const statusEl = document.getElementById('uploadStatus');
+    if (statusEl) statusEl.textContent = err.message || 'Upload failed';
+    showToast(err.message || 'Upload failed');
+  }
+}
+
+function clearExtractedInfo(){
+  const card = document.getElementById('extractCard');
+  if (card) card.style.display = 'none';
+  const atsCard = document.getElementById('atsFeedbackCard');
+  if (atsCard) atsCard.style.display = 'none';
+
+  ['extractedSkills', 'extractedEducation', 'extractedProjects', 'extractedCertifications'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = '<span style="font-size:12px;color:var(--text-soft);">Waiting for resume…</span>';
+  });
+}
+
+function renderExtractedInfo(analysis){
+  const card = document.getElementById('extractCard');
+  if (!card) return;
+  card.style.display = 'block';
+
+  const skills = Array.isArray(analysis?.skills) ? analysis.skills : [];
+  const education = Array.isArray(analysis?.education) ? analysis.education : [];
+  const projects = Array.isArray(analysis?.projects) ? analysis.projects : [];
+  const certifications = Array.isArray(analysis?.certifications) ? analysis.certifications : [];
+
+  document.getElementById('extractedSkills').innerHTML = skills.length
+    ? skills.map(s => `<span class="extract-tag">${escapeHtml(s)}</span>`).join('')
+    : '<span style="font-size:12px;color:var(--text-soft);">No technical skills detected</span>';
+
+  document.getElementById('extractedEducation').innerHTML = education.length
+    ? education.map(e => `<span class="extract-tag">${escapeHtml(e)}</span>`).join('')
+    : '<span style="font-size:12px;color:var(--text-soft);">None detected</span>';
+
+  document.getElementById('extractedProjects').innerHTML = projects.length
+    ? projects.map(p => `<span class="extract-tag">${escapeHtml(p)}</span>`).join('')
+    : '<span style="font-size:12px;color:var(--text-soft);">None detected</span>';
+
+  document.getElementById('extractedCertifications').innerHTML = certifications.length
+    ? certifications.map(c => `<span class="extract-tag">${escapeHtml(c)}</span>`).join('')
+    : '<span style="font-size:12px;color:var(--text-soft);">None detected</span>';
+}
+
+function renderAtsFeedback(analysis){
+  const atsCard = document.getElementById('atsFeedbackCard');
+  if (!atsCard) return;
+  atsCard.style.display = 'block';
+
+  const score = analysis?.atsScore || 75;
+  document.getElementById('atsScoreDisplay').textContent = score + '%';
+  document.getElementById('atsScoreBadge').textContent = score >= 80 ? 'ATS Strong' : 'ATS Moderate';
+
+  const suggestions = Array.isArray(analysis?.suggestions) ? analysis.suggestions : [];
+  const listEl = document.getElementById('atsSuggestionsList');
+  if(suggestions.length === 0){
+    listEl.innerHTML = `<li><span class="mark" style="color:var(--deep-teal);"><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span> Resume structure and content meet premier standards!</li>`;
+  } else {
+    listEl.innerHTML = suggestions.map(s => `
+      <li style="display:flex; align-items:flex-start; gap:8px; padding:6px 0; border-bottom:1px solid var(--line);">
+        <span style="color:var(--coral); font-weight:700;">▲</span>
+        <span>${escapeHtml(s)}</span>
+      </li>
+    `).join('');
+  }
+}
+
+/* ---------------- Adaptive Competency Assessment (Completed State & Skill-Based Randomization) ---------------- */
+let questions = [];
+let qIndex = 0;
+let assessmentAnswers = [];
+
+async function loadAssessment(){
+  const completedCard = document.getElementById('assessmentCompletedCard');
+  const activeQuiz = document.getElementById('quizActiveContainer');
+
+  // Requirement: If already completed, show completed card and DO NOT ask questions again!
+  if (userProfile.assessment && userProfile.assessment.completedAt) {
+    showCompletedAssessmentView(userProfile.assessment);
+    return;
+  }
+
+  // Fetch from backend
+  if (authToken) {
+    try {
+      const data = await apiFetch('/users/me/assessment/questions');
+      if (data.isCompleted) {
+        showCompletedAssessmentView(data);
+        return;
+      }
+      if (data.questions && data.questions.length > 0) {
+        completedCard.style.display = 'none';
+        activeQuiz.style.display = 'block';
+        setupQuizQuestions(data.questions);
+        return;
+      }
+    } catch (err) {
+      console.warn('Could not fetch questions:', err);
+    }
+  }
+
+  // Default generation for guest testing
+  completedCard.style.display = 'none';
+  activeQuiz.style.display = 'block';
+  setupQuizQuestions([]);
+}
+
+function showCompletedAssessmentView(assessmentData){
+  const completedCard = document.getElementById('assessmentCompletedCard');
+  const activeQuiz = document.getElementById('quizActiveContainer');
+
+  activeQuiz.style.display = 'none';
+  completedCard.style.display = 'block';
+
+  const score = assessmentData.score ?? 5;
+  const total = assessmentData.totalQuestions ?? 6;
+  const pct = assessmentData.percentage ?? (userProfile.technicalScore || 83);
+
+  document.getElementById('completedScoreText').textContent = `${score} / ${total}`;
+  document.getElementById('completedPctText').textContent = `${pct}%`;
+}
+
+function setupQuizQuestions(qList){
+  if (!qList || qList.length === 0) {
+    // If no questions returned, request freshly generated randomized questions
+    if (authToken) {
+      apiFetch('/users/me/assessment/questions').then(d => {
+        if (d.questions) setupQuizQuestions(d.questions);
+      }).catch(console.error);
+      return;
+    }
+  }
+
+  questions = qList.map((q, i) => ({
+    questionNumber: q.questionNumber || (i + 1),
+    skill: q.skill || 'General',
+    difficulty: q.difficulty || 'Intermediate',
+    question: q.question,
+    options: q.options || [],
+    correctAnswer: Number(q.correctAnswer ?? 0),
+    explanation: q.explanation || ''
+  }));
+
+  qIndex = 0;
+  assessmentAnswers = new Array(questions.length).fill(null);
+  renderCurrentQuestion();
+}
+
+function renderCurrentQuestion(){
+  if (!questions.length) return;
+  const q = questions[qIndex];
+  const total = questions.length;
+  const progress = ((qIndex + 1) / total) * 100;
+
+  document.getElementById('quizFill').style.width = progress + '%';
+  document.getElementById('quizCount').textContent = `Question ${qIndex + 1} of ${total}`;
+  document.getElementById('qTag').textContent = `BASED ON: ${q.skill} · ${q.difficulty}`;
+  document.getElementById('qText').textContent = q.question;
+
+  const optContainer = document.getElementById('quizOptions');
+  optContainer.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+
+  q.options.forEach((opt, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt' + (assessmentAnswers[qIndex] === idx ? ' selected' : '');
+    btn.type = 'button';
+    btn.innerHTML = `
+      <span style="font-weight:700; width:18px; color:var(--deep-teal);">${letters[idx]}</span>
+      <span class="bullet">${assessmentAnswers[qIndex] === idx ? '<svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>' : ''}</span>
+      <span>${escapeHtml(opt)}</span>
+    `;
+    btn.onclick = () => {
+      assessmentAnswers[qIndex] = idx;
+      renderCurrentQuestion();
+    };
+    optContainer.appendChild(btn);
+  });
+
+  document.getElementById('quizBackBtn').disabled = qIndex === 0;
+  document.getElementById('quizNextBtn').textContent = qIndex === total - 1 ? 'Submit Assessment →' : 'Next Question →';
+}
+
+function quizBack(){
+  if (qIndex > 0) { qIndex--; renderCurrentQuestion(); }
+}
+
+async function quizNext(){
+  if (assessmentAnswers[qIndex] === null || assessmentAnswers[qIndex] === undefined) {
+    alert('Please select an option before continuing.');
+    return;
+  }
+  if (qIndex < questions.length - 1) {
+    qIndex++;
+    renderCurrentQuestion();
+  } else {
+    await submitAssessment();
+  }
+}
+
+async function submitAssessment(){
+  const answers = questions.map((q, i) => {
+    const chosen = assessmentAnswers[i];
+    return {
+      questionNumber: q.questionNumber,
+      question: q.question,
+      skill: q.skill,
+      difficulty: q.difficulty,
+      selectedAnswer: q.options[chosen],
+      selectedAnswerIndex: chosen,
+      correctAnswer: q.correctAnswer,
+      correct: chosen === q.correctAnswer
+    };
+  });
+  const correctCount = answers.filter(a => a.correct).length;
+  const total = questions.length;
+  const percentage = Math.round((correctCount / total) * 100);
+
+  if (authToken) {
+    try {
+      const data = await apiFetch('/users/me/assessment', {
+        method: 'POST',
+        body: JSON.stringify({ answers, score: correctCount, totalQuestions: total, percentage })
+      });
+      applyServerUser(data.user);
+    } catch (err) {
+      console.warn('Offline submission:', err);
+    }
+  }
+
+  userProfile.technicalScore = percentage;
+  if (!userProfile.assessment) userProfile.assessment = {};
+  userProfile.assessment.completedAt = new Date().toISOString();
+  userProfile.assessment.score = correctCount;
+  userProfile.assessment.totalQuestions = total;
+  userProfile.assessment.percentage = percentage;
+
+  showToast(`Assessment Completed! Score: ${correctCount}/${total} (${percentage}%)`);
+  // Requirement: Switch to permanent completed view and DO NOT ask questions again!
+  showCompletedAssessmentView(userProfile.assessment);
+}
+
+/* ---------------- Interests & Personality Profiler ---------------- */
+async function savePsychometrics(){
+  const selectedInterests = Array.from(document.querySelectorAll('input[name="interest"]:checked')).map(c => c.value);
+  const leadershipVal = Number(document.getElementById('traitLeadership').value) || 75;
+  const technicalVal = Number(document.getElementById('traitTechnical').value) || 90;
+  const creativeVal = Number(document.getElementById('traitCreative').value) || 70;
+
+  if (authToken) {
+    try {
+      await apiFetch('/users/me/interests', {
+        method: 'POST',
+        body: JSON.stringify({ interests: selectedInterests, primaryInterest: selectedInterests[0] || 'coding' })
+      });
+      const res = await apiFetch('/users/me/personality', {
+        method: 'POST',
+        body: JSON.stringify({
+          traits: { leadership: leadershipVal, technical: technicalVal, creative: creativeVal, research: 80, business: 70 }
+        })
+      });
+      applyServerUser(res.user);
+      showToast('Interests & Persona updated!');
+      goTo('recommendation');
+      return;
+    } catch(err) {
+      console.warn(err);
+    }
+  }
+  showToast('Preferences saved!');
+  goTo('recommendation');
+}
+
+/* ---------------- Role Matching & Career Twin (Clean Title Only, No Subtext) ---------------- */
+function renderRecommendation(){
+  const rec = userProfile.careerRecommendation || {};
+  const twin = document.getElementById('careerTwinText');
+  const holder = document.getElementById('careerMatchesHolder');
+
+  if (twin) {
+    twin.textContent = rec.careerTwin || 'You think like a Software Engineer with pragmatic architectural clarity and strong problem-solving instinct. Strengthening your Data Structures and Cloud skills will accelerate your journey to top-tier placements.';
+  }
+
+  const defaultMatches = [
+    { id: 'software-engineer', title: 'Software Engineer', matchPercent: 94 },
+    { id: 'backend-engineer', title: 'Backend Engineer', matchPercent: 91 },
+    { id: 'data-analyst', title: 'Data Analyst', matchPercent: 88 },
+    { id: 'ui-ux-designer', title: 'UI/UX Designer', matchPercent: 78 }
+  ];
+
+  const matches = (Array.isArray(rec.careerMatches) && rec.careerMatches.length) ? rec.careerMatches : defaultMatches;
+
+  if (holder) {
+    // Requirement: REMOVED subtext line "Engineering · Est: $95,000 - $130,000"!
+    holder.innerHTML = matches.map((m, i) => `
+      <div class="career-card" onclick="selectCareerForRoadmap('${m.id}')" style="cursor:pointer;" title="Click to view roadmap for ${escapeHtml(m.title)}">
+        <div class="rank">${String(i + 1).padStart(2, '0')}</div>
+        <div class="career-info">
+          <b>${escapeHtml(m.title)}</b>
+          <div class="track"><div class="fill" style="width:${Math.max(0, Math.min(100, m.matchPercent || 0))}%"></div></div>
+        </div>
+        <div class="career-pct">${m.matchPercent || 0}%</div>
+      </div>
+    `).join('');
+  }
+}
+
+function selectCareerForRoadmap(careerId){
+  const sel = document.getElementById('roadmapRoleSelect');
+  if(sel){ sel.value = careerId; }
+  goTo('roadmap');
+}
+
+/* ---------------- Employability Scorecard & Charts ---------------- */
+let radarChartInstance = null;
+let barChartInstance = null;
+
+function initDashboardCharts(){
+  const scores = userProfile.careerScoreDashboard || {
+    resumeStrength: userProfile.atsScore || 84,
+    technicalSkills: userProfile.technicalScore || 81,
+    problemSolving: 90,
+    communication: 74,
+    leadership: 69,
+    learningAbility: 88,
+    overallEmployability: 82
+  };
+
+  document.getElementById('dashResume').textContent = (scores.resumeStrength || 84) + '%';
+  document.getElementById('dashTech').textContent = (scores.technicalSkills || 81) + '%';
+  document.getElementById('dashProblem').textContent = (scores.problemSolving || 90) + '%';
+  document.getElementById('dashEmploy').textContent = (scores.overallEmployability || 82) + '%';
+
+  const radarCtx = document.getElementById('competencyRadarChart');
+  if (radarCtx) {
+    if (radarChartInstance) radarChartInstance.destroy();
+    radarChartInstance = new Chart(radarCtx, {
+      type: 'radar',
+      data: {
+        labels: ['Resume', 'Technical', 'Problem Solving', 'Communication', 'Leadership', 'Learning'],
+        datasets: [{
+          label: 'Competency Score',
+          data: [
+            scores.resumeStrength || 84,
+            scores.technicalSkills || 81,
+            scores.problemSolving || 90,
+            scores.communication || 74,
+            scores.leadership || 69,
+            scores.learningAbility || 88
+          ],
+          backgroundColor: 'rgba(35, 206, 217, 0.25)',
+          borderColor: '#23CED9',
+          borderWidth: 2.5,
+          pointBackgroundColor: '#FCA47C',
+          pointBorderColor: '#fff',
+          pointRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          r: {
+            min: 0,
+            max: 100,
+            ticks: { display: false },
+            grid: { color: document.documentElement.getAttribute('data-theme') === 'light' ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.1)' },
+            angleLines: { color: document.documentElement.getAttribute('data-theme') === 'light' ? 'rgba(0, 0, 0, 0.12)' : 'rgba(255, 255, 255, 0.15)' },
+            pointLabels: {
+              color: document.documentElement.getAttribute('data-theme') === 'light' ? '#15172B' : '#F5F7FF',
+              font: { family: 'Inter', size: 11, weight: 600 }
+            }
+          }
+        },
+        plugins: { legend: { display: false } }
+      }
+    });
+  }
+
+  const barCtx = document.getElementById('careerBarChart');
+  if (barCtx) {
+    if (barChartInstance) barChartInstance.destroy();
+    const matches = userProfile.careerRecommendation?.careerMatches || [
+      { title: 'Software Engineer', matchPercent: 94 },
+      { title: 'Backend Engineer', matchPercent: 91 },
+      { title: 'Data Analyst', matchPercent: 88 },
+      { title: 'UI/UX Designer', matchPercent: 78 }
+    ];
+    barChartInstance = new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels: matches.slice(0, 5).map(m => m.title),
+        datasets: [{
+          label: 'Suitability %',
+          data: matches.slice(0, 5).map(m => m.matchPercent),
+          backgroundColor: '#8B7CFF',
+          hoverBackgroundColor: '#48D9E8',
+          borderRadius: 6
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        scales: {
+          x: { min: 0, max: 100, grid: { color: 'rgba(23, 38, 42, 0.06)' } },
+          y: { grid: { display: false } }
+        },
+        plugins: { legend: { display: false } }
+      }
+    });
+  }
+}
+
+/* ---------------- Skill Gap Diagnostics & 8-Week Roadmap ---------------- */
+function onRoadmapRoleChange(){
+  updateRoadmapDisplay();
+}
+
+function updateRoadmapDisplay(){
+  const sel = document.getElementById('roadmapRoleSelect');
+  const careerId = sel ? sel.value : 'software-engineer';
+  const rec = userProfile.careerRecommendation || {};
+  const matches = rec.careerMatches || [];
+  const targetCareer = matches.find(m => m.id === careerId) || matches[0] || {
+    title: 'Software Engineer',
+    skillsHave: ['JavaScript', 'HTML5', 'Git', 'SQL', 'Python'],
+    skillsMissing: ['Data Structures', 'Docker', 'System Design'],
+    roadmap: [
+      { week: 1, title: 'Core Programming & Data Structures', focus: 'Arrays, Objects, Complexity Analysis (Big-O)' },
+      { week: 2, title: 'Modern Frontend & Component Architecture', focus: 'React, State Management, DOM APIs' },
+      { week: 3, title: 'Backend Engineering & REST APIs', focus: 'Node.js, Express, Middleware, Authentication' },
+      { week: 4, title: 'Database Design & ORM Querying', focus: 'PostgreSQL/MongoDB, Indexing, Schema Normalization' },
+      { week: 5, title: 'Testing, CI/CD & Cloud Basics', focus: 'Jest, GitHub Actions, Docker containers' },
+      { week: 6, title: 'Full-Stack Portfolio Project', focus: 'Build & deploy an end-to-end web application' },
+      { week: 7, title: 'ATS Resume Polish & Code Review', focus: 'Highlight measurable impact, latency reductions' },
+      { week: 8, title: 'Technical Mock Interviews & LeetCode', focus: 'Live coding problems, system architecture talk' }
+    ]
+  };
+
+  const haveEl = document.getElementById('skillsHaveList');
+  const missingEl = document.getElementById('skillsMissingList');
+  const headingEl = document.getElementById('skillGapHeading');
+  const prepBadge = document.getElementById('estimatedPrepBadge');
+  const holder = document.getElementById('roadmapItemsHolder');
+
+  if(targetCareer){
+    if(headingEl) headingEl.textContent = `Skill Gap — Target: ${targetCareer.title}`;
+    const have = targetCareer.skillsHave || userProfile.skills || ['JavaScript', 'Git', 'HTML5'];
+    const missing = targetCareer.skillsMissing || ['System Design', 'Docker'];
+
+    if(haveEl) haveEl.innerHTML = have.map(s => `<li><span class="mark"><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span> ${escapeHtml(s)}</li>`).join('');
+    if(missingEl) missingEl.innerHTML = missing.map(s => `<li><span class="mark"><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> ${escapeHtml(s)}</li>`).join('');
+    if(prepBadge) prepBadge.textContent = `Est. Prep: ${missing.length <= 2 ? '1–2 Months' : missing.length <= 4 ? '3–5 Months' : '5–7 Months'}`;
+
+    if(holder && targetCareer.roadmap){
+      holder.innerHTML = targetCareer.roadmap.map(item => `
+        <div class="roadmap-item">
+          <div class="roadmap-week">WK 0${item.week}</div>
+          <div>
+            <b>${escapeHtml(item.title)}</b>
+            <p>${escapeHtml(item.focus)}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+}
+
+/* ---------------- Opportunity Hub ---------------- */
+let allOpportunities = [];
+let activeOppType = 'all';
+
+async function loadOpportunities(){
+  const grid = document.getElementById('opportunitiesGrid');
+  grid.innerHTML = '<div style="font-size:13px; color:var(--text-soft);">Loading opportunities...</div>';
+  try {
+    const data = await apiFetch('/opportunities');
+    allOpportunities = data.opportunities || [];
+    renderOpportunityCards();
+  } catch (err) {
+    grid.innerHTML = '<div style="font-size:13px; color:var(--red);">Could not load opportunities.</div>';
+  }
+}
+
+function setOppType(type, btn){
+  activeOppType = type;
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderOpportunityCards();
+}
+
+function filterOpportunities(){
+  renderOpportunityCards();
+}
+
+function renderOpportunityCards(){
+  const grid = document.getElementById('opportunitiesGrid');
+  const q = (document.getElementById('oppSearchInput')?.value || '').toLowerCase().trim();
+
+  let filtered = allOpportunities.filter(o => {
+    if (activeOppType !== 'all' && o.type.toLowerCase() !== activeOppType.toLowerCase()) return false;
+    if (q) {
+      const match = o.title.toLowerCase().includes(q) ||
+                    o.company.toLowerCase().includes(q) ||
+                    o.domain.toLowerCase().includes(q) ||
+                    (o.tags && o.tags.some(t => t.toLowerCase().includes(q)));
+      if (!match) return false;
+    }
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1; padding:30px; text-align:center; font-size:13px; color:var(--text-soft);">No matching opportunities found. Try adjusting filters.</div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(opp => {
+    let badgeClass = 'opp-badge job';
+    if (opp.type === 'Internship') badgeClass = 'opp-badge intern';
+    else if (opp.type === 'Hackathon') badgeClass = 'opp-badge hack';
+    else if (opp.type === 'Certification') badgeClass = 'opp-badge cert';
+
+    return `
+      <div class="opp-card">
+        <div class="head">
+          <div>
+            <div class="title">${escapeHtml(opp.title)}</div>
+            <div class="comp">${escapeHtml(opp.company)} · ${escapeHtml(opp.location)}</div>
+          </div>
+          <span class="${badgeClass}">${escapeHtml(opp.type)}</span>
+        </div>
+        <p class="desc">${escapeHtml(opp.description)}</p>
+        <div style="margin-bottom:10px;">
+          ${(opp.tags || []).map(t => `<span class="extract-tag" style="font-size:11px; padding:3px 8px;">${escapeHtml(t)}</span>`).join('')}
+        </div>
+        <div class="foot">
+          <span style="font-size:12px; font-weight:700; color:var(--ink); font-family:'JetBrains Mono',monospace;">${escapeHtml(opp.stipendOrSalary)}</span>
+          <a href="${opp.url}" target="_blank" rel="noopener" class="btn btn-cyan btn-sm">Apply / View →</a>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ---------------- AI Mock Interview Studio ---------------- */
+let interviewQuestions = [];
+let interviewStep = 0;
+let interviewResponses = [];
+let speechRecognizer = null;
+
+async function startNewInterview(){
+  const careerId = document.getElementById('interviewCareerSelect')?.value || 'software-engineer';
+  try {
+    const data = await apiFetch(`/users/me/interview/questions?careerId=${careerId}`);
+    interviewQuestions = data.questions || [];
+    interviewStep = 0;
+    interviewResponses = [];
+    loadInterviewQuestion();
+  } catch (err) {
+    console.warn('Failed to load interview questions:', err);
+  }
+}
+
+function loadInterviewQuestion(){
+  if (!interviewQuestions.length) {
+    startNewInterview();
+    return;
+  }
+  const q = interviewQuestions[interviewStep];
+  document.getElementById('interviewStepCount').textContent = `Question ${interviewStep + 1} of ${interviewQuestions.length}`;
+  document.getElementById('interviewTypeBadge').textContent = `QUESTION ${interviewStep + 1} · ${escapeHtml(q.type)}`;
+  document.getElementById('interviewQuestionText').textContent = q.prompt;
+  document.getElementById('interviewAnswerText').value = '';
+}
+
+function toggleVoiceDictation(){
+  const btn = document.getElementById('voiceDictateBtn');
+  const labelEl = document.getElementById('voiceDictateLabel');
+  const waveEl = document.getElementById('audioWaveBox');
+  const answerEl = document.getElementById('interviewAnswerText');
+
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    alert('Speech recognition is not supported in this browser. You can type your answer in the box.');
+    return;
+  }
+
+  const SpeechClass = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!speechRecognizer) {
+    speechRecognizer = new SpeechClass();
+    speechRecognizer.continuous = true;
+    speechRecognizer.interimResults = true;
+
+    speechRecognizer.onresult = (e) => {
+      let finalTranscript = '';
+      for (let i = e.resultIndex; i < e.results.length; ++i) {
+        if (e.results[i].isFinal) finalTranscript += e.results[i][0].transcript + ' ';
+      }
+      if (finalTranscript) answerEl.value += ' ' + finalTranscript;
+    };
+    speechRecognizer.onstart = () => {
+      if (labelEl) labelEl.textContent = 'Listening (Recording)...';
+      btn.classList.add('dictating');
+      btn.style.color = 'var(--coral-dark)';
+      if (waveEl) waveEl.style.display = 'inline-flex';
+    };
+    speechRecognizer.onend = () => {
+      if (labelEl) labelEl.textContent = 'Speak Response';
+      btn.classList.remove('dictating');
+      btn.style.color = '';
+      if (waveEl) waveEl.style.display = 'none';
+      speechRecognizer = null;
+    };
+    speechRecognizer.start();
+  } else {
+    speechRecognizer.stop();
+    speechRecognizer = null;
+    if (labelEl) labelEl.textContent = 'Speak Response';
+    btn.classList.remove('dictating');
+    btn.style.color = '';
+    if (waveEl) waveEl.style.display = 'none';
+  }
+}
+
+async function submitInterviewAnswer(){
+  const text = document.getElementById('interviewAnswerText').value.trim();
+  if (!text) {
+    alert('Please enter or dictate a response before proceeding.');
+    return;
+  }
+
+  const q = interviewQuestions[interviewStep];
+  interviewResponses.push({
+    questionId: q.id,
+    prompt: q.prompt,
+    answer: text
+  });
+
+  if (interviewStep < interviewQuestions.length - 1) {
+    interviewStep++;
+    loadInterviewQuestion();
+  } else {
+    const careerId = document.getElementById('interviewCareerSelect')?.value || 'software-engineer';
+    const btn = document.getElementById('interviewSubmitBtn');
+    btn.disabled = true; btn.textContent = 'Evaluating responses…';
+
+    try {
+      const data = await apiFetch('/users/me/interview', {
+        method: 'POST',
+        body: JSON.stringify({ careerId, responses: interviewResponses })
+      });
+      applyServerUser(data.user);
+      renderInterviewResults(data.evaluation);
+      showToast('Interview Evaluated Successfully!');
+    } catch (err) {
+      alert(err.message || 'Interview submission failed.');
+    } finally {
+      btn.disabled = false; btn.textContent = 'Submit Answer & Continue →';
+    }
+  }
+}
+
+function renderInterviewResults(evalData){
+  document.getElementById('intTechScore').textContent = (evalData.technicalScore || 85) + '%';
+  document.getElementById('intCommScore').textContent = (evalData.communicationScore || 80) + '%';
+  document.getElementById('intConfScore').textContent = (evalData.confidenceScore || 82) + '%';
+  document.getElementById('intReadyScore').textContent = (evalData.interviewReadinessScore || 83) + '%';
+
+  const feedbackHolder = document.getElementById('interviewFeedbackHolder');
+  const details = evalData.detailedFeedback || [];
+  if (!details.length) {
+    feedbackHolder.innerHTML = '<div style="color:var(--text-soft); font-size:13px; padding:12px 0;">No question-specific feedback recorded.</div>';
+    return;
+  }
+
+  feedbackHolder.innerHTML = details.map((item, idx) => {
+    const sc = item.score || 70;
+    const pillClass = sc >= 80 ? 'high' : (sc >= 65 ? 'mid' : 'low');
+    const conceptsHtml = (item.detectedConcepts && item.detectedConcepts.length > 0)
+      ? item.detectedConcepts.map(c => `<span class="concept-pill"><svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ${escapeHtml(c)}</span>`).join(' ')
+      : '<span style="font-size:11px; color:var(--text-soft); font-style:italic;">No core concepts detected</span>';
+
+    return `
+      <div class="eval-q-card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:8px;">
+          <div style="flex:1;">
+            <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--deep-teal); font-weight:700; margin-bottom:3px;">
+              Question ${idx + 1} &middot; ${escapeHtml(item.questionType || 'Technical Concept')}
+            </div>
+            <div style="font-size:14px; font-weight:600; color:var(--ink); line-height:1.4;">
+              ${escapeHtml(item.questionPrompt)}
+            </div>
+          </div>
+          <span class="eval-score-pill ${pillClass}">${sc}% Score</span>
+        </div>
+
+        <div style="margin: 8px 0 10px; display:flex; flex-wrap:wrap; gap:6px; align-items:center;">
+          <span style="font-size:11px; font-weight:600; color:var(--text-soft);">Detected Concepts:</span>
+          ${conceptsHtml}
+        </div>
+
+        <div style="font-size:13px; color:var(--ink); background:var(--surface-muted); padding:10px 12px; border-radius:8px; margin-bottom:10px; line-height:1.5;">
+          ${escapeHtml(item.feedback || '')}
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:12px;">
+          <div style="background:var(--sage-tint); padding:9px 12px; border-radius:8px; color:var(--deep-teal);">
+            <div style="font-weight:700; margin-bottom:3px; display:flex; align-items:center; gap:5px;">
+              <svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Identified Strengths
+            </div>
+            <div style="line-height:1.4;">${escapeHtml(item.strengths || 'Structured response provided.')}</div>
+          </div>
+          <div style="background:var(--coral-light); padding:9px 12px; border-radius:8px; color:var(--coral-dark);">
+            <div style="font-weight:700; margin-bottom:3px; display:flex; align-items:center; gap:5px;">
+              <svg class="svg-ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Focus Areas to Master
+            </div>
+            <div style="line-height:1.4;">${escapeHtml(item.improvements || 'Incorporate real-world production metrics and trade-offs.')}</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ---------------- Connected Profiles (No AI Analysis, URL Validation & Reliable Saving) ---------------- */
+function normalizeUrlInput(val) {
+  let s = (val || '').trim();
+  if (!s) return '';
+  if (!/^https?:\/\//i.test(s)) {
+    s = 'https://' + s;
+  }
+  return s;
+}
+
+function isValidHttpUrl(string) {
+  try {
+    const url = new URL(string);
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch (_) {
+    return false;
+  }
+}
+
+function initConnectedProfilesScreen(){
+  // Requirement: Pre-populate existing saved links so user can add/edit links without overwriting
+  document.getElementById('linkedinUrl').value = userProfile.linkedin || '';
+  document.getElementById('githubUrl').value = userProfile.github || '';
+  document.getElementById('otherUrl').value = userProfile.other || '';
+
+  const banner = document.getElementById('connectedProfilesBanner');
+  if (banner) { banner.style.display = 'none'; banner.textContent = ''; }
+
+  const btn = document.getElementById('saveProfilesBtn');
+  if (btn) { btn.disabled = false; btn.textContent = 'Save Profile Links →'; }
+}
+
+function validateConnectedProfiles(){
+  let linkedin = document.getElementById('linkedinUrl').value.trim();
+  let github = document.getElementById('githubUrl').value.trim();
+  let other = document.getElementById('otherUrl').value.trim();
+  const banner = document.getElementById('connectedProfilesBanner');
+
+  if (linkedin) {
+    linkedin = normalizeUrlInput(linkedin);
+    document.getElementById('linkedinUrl').value = linkedin;
+  }
+  if (github) {
+    github = normalizeUrlInput(github);
+    document.getElementById('githubUrl').value = github;
+  }
+  if (other) {
+    other = normalizeUrlInput(other);
+    document.getElementById('otherUrl').value = other;
+  }
+
+  banner.style.display = 'none';
+
+  // Requirement: URL validation with clear, helpful error messages
+  if (linkedin) {
+    if (!isValidHttpUrl(linkedin) || !linkedin.toLowerCase().includes('linkedin.com')) {
+      banner.className = 'auth-banner error';
+      banner.textContent = 'Please enter a valid LinkedIn URL (e.g. https://linkedin.com/in/yourname)';
+      banner.style.display = 'block';
+      showToast('Invalid LinkedIn URL format');
+      return false;
+    }
+  }
+
+  if (github) {
+    if (!isValidHttpUrl(github) || !github.toLowerCase().includes('github.com')) {
+      banner.className = 'auth-banner error';
+      banner.textContent = 'Please enter a valid GitHub URL (e.g. https://github.com/yourname)';
+      banner.style.display = 'block';
+      showToast('Invalid GitHub URL format');
+      return false;
+    }
+  }
+
+  if (other) {
+    if (!isValidHttpUrl(other)) {
+      banner.className = 'auth-banner error';
+      banner.textContent = 'Please enter a valid URL starting with https:// or http://';
+      banner.style.display = 'block';
+      showToast('Invalid Portfolio/Website URL format');
+      return false;
+    }
+  }
+
+  return true;
+}
+
+async function saveConnectedProfiles(){
+  if (!validateConnectedProfiles()) return;
+
+  const linkedin = document.getElementById('linkedinUrl').value.trim();
+  const github = document.getElementById('githubUrl').value.trim();
+  const other = document.getElementById('otherUrl').value.trim();
+  const btn = document.getElementById('saveProfilesBtn');
+  const banner = document.getElementById('connectedProfilesBanner');
+
+  btn.disabled = true;
+  btn.textContent = 'Saving links…';
+
+  try{
+    if (authToken) {
+      const data = await apiFetch('/users/me', {
+        method: 'PUT',
+        body: JSON.stringify({ linkedin, github, otherProfile: other }),
+      });
+      applyServerUser(data.user);
+    } else {
+      userProfile.linkedin = linkedin;
+      userProfile.github = github;
+      userProfile.other = other;
+      renderProfileSummary();
+    }
+    banner.className = 'auth-banner success';
+    banner.textContent = 'Profile links saved successfully!';
+    banner.style.display = 'block';
+    showToast('Profile links saved!');
+  }catch(err){
+    banner.className = 'auth-banner error';
+    banner.textContent = err.message || 'Could not save profile links.';
+    banner.style.display = 'block';
+    showToast(err.message || 'Could not save profile links.');
+  }finally{
+    btn.disabled = false;
+    btn.textContent = 'Save Profile Links →';
+  }
+}
+
+/* ---------------- Profile & Settings ---------------- */
+function renderProfileSummary(){
+  document.getElementById('profileNameHeading').textContent =
+    `${userProfile.firstName} ${userProfile.lastName}`.trim() || 'Your Profile';
+  document.getElementById('profileEmailLine').textContent =
+    userProfile.email ? `Final Year BCA · ${userProfile.email}` : 'Sign in to sync your profile';
+
+  const avatarLg = document.getElementById('profileAvatarLg');
+  if(userProfile.avatarDataUrl){
+    avatarLg.style.backgroundImage = `url('${userProfile.avatarDataUrl}')`;
+    avatarLg.style.backgroundSize='cover';
+    avatarLg.style.backgroundPosition='center';
+    avatarLg.textContent='';
+  } else {
+    avatarLg.style.backgroundImage='';
+    avatarLg.textContent = initials();
+  }
+
+  const scores = [
+    ['atsScoreFill','atsScoreValue',userProfile.atsScore],
+    ['technicalScoreFill','technicalScoreValue',userProfile.technicalScore],
+    ['readinessScoreFill','readinessScoreValue',userProfile.interviewReadinessScore],
+  ];
+  scores.forEach(([fillId,valueId,value])=>{
+    const fill=document.getElementById(fillId), label=document.getElementById(valueId);
+    if(fill && label){
+      if(typeof value==='number'){
+        fill.style.width=Math.max(0,Math.min(100,value))+'%';
+        label.textContent=Math.round(value)+'%';
+      }else{
+        fill.style.width='0%';
+        label.textContent='—';
+      }
+    }
+  });
+
+  document.getElementById('profileResumeCount').textContent =
+    `${userProfile.resumes.length} resume${userProfile.resumes.length===1?'':'s'} stored in your account.`;
+
+  const rec = userProfile.careerRecommendation;
+  const summary = document.getElementById('profileCareerSummary');
+  if(rec && (rec.careerTwin || (rec.careerMatches||[]).length)){
+    const top = (rec.careerMatches||[])[0];
+    summary.innerHTML =
+      `${rec.careerTwin ? `<b>${rec.careerTwin}</b><br>` : ''}` +
+      (top ? `Top match: <b>${top.title}</b> (${top.matchPercent}%).` : 'Recommendation saved.');
+  }else{
+    summary.textContent='Upload your resume to generate your recommendation and match probabilities.';
+  }
+
+  // Requirement: Display saved links in profile if added, or show empty
+  const linkedinEl = document.getElementById('profLinkedinDisplay');
+  const githubEl = document.getElementById('profGithubDisplay');
+  const otherEl = document.getElementById('profOtherDisplay');
+
+  if (linkedinEl) {
+    if (userProfile.linkedin) {
+      linkedinEl.innerHTML = `<a href="${escapeHtml(userProfile.linkedin)}" target="_blank" rel="noopener" style="color:var(--deep-teal); font-weight:600; text-decoration:underline;">${escapeHtml(userProfile.linkedin)}</a>`;
+    } else {
+      linkedinEl.innerHTML = `<span style="color:var(--text-soft); font-style:italic;">(Empty)</span>`;
+    }
+  }
+
+  if (githubEl) {
+    if (userProfile.github) {
+      githubEl.innerHTML = `<a href="${escapeHtml(userProfile.github)}" target="_blank" rel="noopener" style="color:var(--deep-teal); font-weight:600; text-decoration:underline;">${escapeHtml(userProfile.github)}</a>`;
+    } else {
+      githubEl.innerHTML = `<span style="color:var(--text-soft); font-style:italic;">(Empty)</span>`;
+    }
+  }
+
+  if (otherEl) {
+    if (userProfile.other) {
+      otherEl.innerHTML = `<a href="${escapeHtml(userProfile.other)}" target="_blank" rel="noopener" style="color:var(--deep-teal); font-weight:600; text-decoration:underline;">${escapeHtml(userProfile.other)}</a>`;
+    } else {
+      otherEl.innerHTML = `<span style="color:var(--text-soft); font-style:italic;">(Empty)</span>`;
+    }
+  }
+
+  const badges = document.getElementById('profileBadges');
+  const badgeParts = [];
+  if(userProfile.resumes.length) badgeParts.push(`${userProfile.resumes.length} Resume${userProfile.resumes.length===1?'':'s'}`);
+  if(userProfile.skills.length) badgeParts.push(`${userProfile.skills.length} Skills`);
+  if(userProfile.assessment?.completedAt) badgeParts.push('Assessment verified');
+  if(!badgeParts.length) badgeParts.push('Profile active');
+  badges.innerHTML = badgeParts.map(x=>`<span class="badge">${x}</span>`).join('');
+}
+
+function populateEditForm(){
+  document.getElementById('epFirstName').value = userProfile.firstName;
+  document.getElementById('epLastName').value = userProfile.lastName;
+  const emailField = document.getElementById('epEmail');
+  emailField.value = userProfile.email;
+  document.getElementById('epLinkedin').value = userProfile.linkedin;
+  document.getElementById('epGithub').value = userProfile.github;
+  document.getElementById('epOther').value = userProfile.other;
+  document.getElementById('epNotes').value = userProfile.notes;
+  const avatarPreview = document.getElementById('avatarPreview');
+  if(userProfile.avatarDataUrl){ avatarPreview.style.backgroundImage = `url('${userProfile.avatarDataUrl}')`; avatarPreview.textContent=''; }
+  else { avatarPreview.style.backgroundImage=''; avatarPreview.textContent = initials(); }
+  renderTagList('hobby'); renderTagList('skill'); renderResumeList();
+}
+
+function renderTagList(type){
+  const listEl = document.getElementById(type+'List');
+  const items = type==='hobby' ? userProfile.hobbies : userProfile.skills;
+  listEl.innerHTML = items.map((item,i)=>`<span class="tag-chip">${escapeHtml(item)}<button type="button" onclick="removeTag('${type}',${i})">×</button></span>`).join('') || `<span style="font-size:12px;color:var(--text-soft);">None added yet</span>`;
+}
+function addTag(type){
+  const input = document.getElementById(type+'Input');
+  const val = input.value.trim();
+  if(!val) return;
+  (type==='hobby' ? userProfile.hobbies : userProfile.skills).push(val);
+  input.value = '';
+  renderTagList(type);
+}
+function removeTag(type, index){
+  (type==='hobby' ? userProfile.hobbies : userProfile.skills).splice(index,1);
+  renderTagList(type);
+}
+
+function renderResumeList(){
+  const holder = document.getElementById('resumeListHolder');
+  if(userProfile.resumes.length === 0){ holder.innerHTML = `<p style="font-size:12px;color:var(--text-soft);">No resumes uploaded yet</p>`; return; }
+  holder.innerHTML = userProfile.resumes.map((r)=>`
+    <div class="resume-chip">
+      <div class="ic">CV</div>
+      <div class="info"><b>${escapeHtml(r.name)}</b><span>${r.size}</span></div>
+      ${r.url ? `<a class="btn btn-ghost btn-sm" href="${r.url}" target="_blank" rel="noopener">Open</a>` : ''}
+      <button type="button" class="remove-btn" onclick="removeResume('${r.id}')" aria-label="Remove resume">×</button>
+    </div>`).join('');
+}
+async function removeResume(resumeId){
+  try{
+    const data = await apiFetch('/users/me/resumes/' + resumeId, { method: 'DELETE' });
+    applyServerUser(data.user);
+    renderResumeList();
+    showToast('Resume removed');
+  }catch(err){
+    showToast(err.message || 'Could not remove resume');
+  }
+}
+document.getElementById('resume-file-input-2').addEventListener('change', async e=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  try{
+    const form = new FormData();
+    form.append('resume', file);
+    const data = await apiFetch('/users/me/resumes', { method: 'POST', body: form });
+    applyServerUser(data.user);
+    renderResumeList();
+    showToast('Resume added');
+  }catch(err){
+    showToast(err.message || 'Upload failed');
+  }
+  e.target.value = '';
+});
+
+document.getElementById('avatarInput').addEventListener('change', async e=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  const avatarPreview = document.getElementById('avatarPreview');
+  const reader = new FileReader();
+  reader.onload = ()=>{ avatarPreview.style.backgroundImage = `url('${reader.result}')`; avatarPreview.textContent = ''; };
+  reader.readAsDataURL(file);
+
+  try{
+    const form = new FormData();
+    form.append('avatar', file);
+    const data = await apiFetch('/users/me/avatar', { method: 'POST', body: form });
+    applyServerUser(data.user);
+    renderSidebar();
+    showToast('Profile photo updated');
+  }catch(err){
+    showToast(err.message || 'Could not upload photo');
+  }
+});
+async function removeAvatar(){
+  try{
+    const data = await apiFetch('/users/me/avatar', { method: 'DELETE' });
+    applyServerUser(data.user);
+    populateEditForm();
+    renderProfileSummary();
+    renderSidebar();
+    showToast('Profile photo removed');
+  }catch(err){
+    showToast(err.message || 'Could not remove photo');
+  }
+}
+
+async function editProfile(){
+  if (authToken) {
+    try {
+      const data = await apiFetch('/users/me');
+      applyServerUser(data.user);
+    } catch(err){}
+  }
+  populateEditForm();
+  showScreen('editprofile');
+}
+
+async function saveProfileChanges(){
+  const firstName = document.getElementById('epFirstName').value.trim();
+  const lastName = document.getElementById('epLastName').value.trim();
+
+  if(!firstName || !lastName){
+    showToast('First name and second name are required.');
+    return;
+  }
+  if(!isValidName(firstName) || !isValidName(lastName)){
+    showToast('First name and second name can only contain letters and underscore (_), without numbers or other special characters.');
+    return;
+  }
+
+  const payload = {
+    firstName: firstName,
+    lastName: lastName,
+    linkedin: document.getElementById('epLinkedin').value.trim(),
+    github: document.getElementById('epGithub').value.trim(),
+    otherProfile: document.getElementById('epOther').value.trim(),
+    hobbies: userProfile.hobbies,
+    skills: userProfile.skills,
+    notes: document.getElementById('epNotes').value,
+  };
+  if (authToken) {
+    try{
+      const data = await apiFetch('/users/me', { method: 'PUT', body: JSON.stringify(payload) });
+      applyServerUser(data.user);
+      showToast('Profile updated');
+      goTo('profile');
+      return;
+    }catch(err){
+      showToast(err.message || 'Could not save profile');
+    }
+  }
+  userProfile.firstName = payload.firstName;
+  userProfile.lastName = payload.lastName;
+  showToast('Profile saved');
+  goTo('profile');
+}
+
+function toggleUserMenu(e){
+  e.stopPropagation();
+  const menu = document.getElementById('userMenu');
+  const chip = document.getElementById('userChipBtn');
+  if(!menu) return;
+  const isOpen = menu.classList.toggle('open');
+  chip.classList.toggle('menu-open', isOpen);
+}
+document.addEventListener('click', ()=>{
+  const menu = document.getElementById('userMenu');
+  const chip = document.getElementById('userChipBtn');
+  if(menu && menu.classList.contains('open')){ menu.classList.remove('open'); chip.classList.remove('menu-open'); }
+});
+
+function switchAccount(){
+  clearToken();
+  clearExtractedInfo();
+  renderSidebar(); // Hides sidebar
+  showScreen('login');
+}
+
+async function logoutUser(){
+  clearToken();
+  clearExtractedInfo();
+  renderSidebar(); // Hides sidebar
+  showScreen('landing');
+  showToast('Logged out');
+}
+
+/* ---------------- Professional CSV Templates Repository (Preview Only) ---------------- */
+const CSV_DATA = {
+  job_tracker: {
+    title: 'Job & Internship Application Pipeline Tracker',
+    headers: ['Company Name', 'Target Role', 'Job ID / URL', 'Location', 'Application Date', 'Current Stage', 'Recruiter Contact', 'Expected CTC / Stipend', 'Resume Version', 'Next Follow-up Date', 'Notes & Referral'],
+    rows: [
+      ['Google', 'Software Engineering Intern', 'REQ-2026-9812', 'Bangalore / Hybrid', '2026-10-15', 'OA Passed - Round 1 Tech', 'priya.recruiter@google.com', '₹80,000 / month', 'SWE_v2_ATS_Optimized.pdf', '2026-10-22', 'Referred by Senior Engineer'],
+      ['Microsoft', 'Associate Data Analyst', 'MSFT-JOB-771', 'Hyderabad / On-site', '2026-10-12', 'Applied - Under Review', 'campus-hiring@microsoft.com', '₹14,50,000 / annum', 'Data_Analyst_v3.pdf', '2026-10-26', 'Applied via Careers portal with portfolio deck'],
+      ['Atlassian', 'Graduate Full-Stack Engineer', 'ATL-GRAD-2026', 'Remote / India', '2026-10-10', 'System Design Screen', 'arjun.talent@atlassian.com', '₹18,00,000 / annum', 'FullStack_v4_React_Node.pdf', '2026-10-20', 'Highlighted open source contributions on GitHub'],
+      ['Amazon', 'SDE 1 (Cloud & Backend)', 'AMZ-IN-88912', 'Hyderabad / Bangalore', '2026-10-08', 'Phone Screening Scheduled', 'amazon-grad-jobs@amazon.com', '₹16,00,000 / annum', 'Backend_v2_Java_AWS.pdf', '2026-10-19', 'Focused on AWS and DynamoDB project impact'],
+      ['Deloitte', 'Business Systems Analyst', 'DEL-CONS-3401', 'Mumbai / Pune', '2026-10-05', 'HR Round Cleared', 'campus-deloitte@deloitte.com', '₹9,50,000 / annum', 'Business_Analyst_v1.pdf', '2026-10-18', 'Final Partner Interview on Tuesday']
+    ]
+  },
+  skill_log: {
+    title: 'Skill Gap & Weekly Study Hours Log',
+    headers: ['Target Profession', 'Skill / Tool', 'Priority', 'Current Level', 'Weekly Hours Target', 'Primary Learning Resource', 'Associated Portfolio Project', 'Target Milestone Date', 'Status'],
+    rows: [
+      ['Backend Engineer', 'Docker & Containerization', 'High', 'Beginner', '6 Hours', 'Docker Mastery (Bret Fisher / Coursera)', 'Multi-container Microservices API', '2026-11-15', 'In Progress (60%)'],
+      ['Backend Engineer', 'Redis Caching & PubSub', 'High', 'Intermediate', '4 Hours', 'Redis University Official RU101', 'High-throughput Rate Limiter', '2026-11-25', 'Not Started'],
+      ['Data Analyst', 'Window Functions in SQL', 'High', 'Advanced', '5 Hours', 'Mode Analytics SQL Tutorial', 'SaaS Cohort Retention Dashboard', '2026-10-30', 'Completed'],
+      ['Data Analyst', 'Power BI & DAX Formulas', 'Medium', 'Intermediate', '5 Hours', 'Microsoft Learn Data Analyst Path', 'E-commerce Revenue Executive Deck', '2026-11-20', 'In Progress (40%)'],
+      ['Software Engineer', 'System Design & Scalability', 'High', 'Beginner', '8 Hours', 'ByteByteGo / Alex Xu Volume 1', 'Distributed URL Shortener', '2026-12-05', 'In Progress (25%)']
+    ]
+  },
+  interview_matrix: {
+    title: 'Technical Interview Problem-Solving Matrix',
+    headers: ['Track', 'Topic / Pattern', 'Problem Name', 'Difficulty', 'Key Concept / Algorithm', 'Time Complexity', 'Space Complexity', 'Attempts Count', 'Confidence (1-5)', 'Next Revision Date'],
+    rows: [
+      ['Data Structures', 'Two Pointers', 'Trapping Rain Water', 'Hard', 'Precomputed Max Array vs Two Pointers', 'O(N)', 'O(1)', '3', '4', '2026-10-25'],
+      ['Data Structures', 'Sliding Window', 'Longest Substring Without Repeating', 'Medium', 'Hash Set tracking character index', 'O(N)', 'O(min(M,N))', '2', '5', '2026-11-05'],
+      ['Backend Engineering', 'Databases & Indexes', 'B-Tree vs Hash Index Benchmarks', 'Medium', 'Logarithmic range scan lookup', 'O(log N)', 'O(N)', '1', '4', '2026-10-28'],
+      ['System Design', 'Rate Limiting', 'Design Sliding Window Log Limiter', 'Medium', 'Redis Sorted Set (ZSET) timestamping', 'O(log M + M)', 'O(M)', '2', '4', '2026-11-10'],
+      ['Core Java / OOP', 'Concurrency', 'Producer-Consumer with BlockingQueue', 'Medium', 'Condition locks and thread signaling', 'O(1)', 'O(N)', '2', '5', '2026-10-30']
+    ]
+  },
+  roadmap_planner: {
+    title: '8-Week Career Roadmap Execution Planner',
+    headers: ['Week', 'Milestone Phase', 'Core Learning Goal', 'Practical Deliverable / Project Artifact', 'Target Study Hours', 'Mentor Review Checkpoint', 'Status'],
+    rows: [
+      ['Week 1', 'Core Programming & Data Structures', 'Master Big-O analysis, HashMaps, and Pointer operations', 'Implement LRU Cache & benchmark lookup latency', '15 Hours', 'Peer code review on GitHub PR', 'Completed'],
+      ['Week 2', 'Frontend Architecture & DOM', 'React hooks internals (useCallback, useMemo) & State management', 'Build responsive component library with Tailwind', '14 Hours', 'Lighthouse Accessibility Audit > 95', 'Completed'],
+      ['Week 3', 'Backend Engineering & REST APIs', 'Express middleware pipeline, JWT auth, and rate-limiting', 'Deploy secure REST API with Swagger documentation', '16 Hours', 'Automated Postman collection passing 100%', 'In Progress (70%)'],
+      ['Week 4', 'Database Architecture & Indexes', 'PostgreSQL indexing strategies, transactions, and normalization', 'Write optimized schema with window functions', '15 Hours', 'EXPLAIN ANALYZE query optimization report', 'Upcoming'],
+      ['Week 5', 'Containerization & CI/CD', 'Docker multi-stage builds and GitHub Actions automated tests', 'Dockerized application published to container registry', '14 Hours', 'CI/CD pipeline green build verification', 'Upcoming'],
+      ['Week 6', 'Full-Stack Capstone Project', 'End-to-end cloud deployment of flagship portfolio application', 'Live production URL with custom domain and README', '20 Hours', 'Mock deployment rehearsal', 'Upcoming'],
+      ['Week 7', 'ATS Resume Tuning & Portfolio Polish', 'Quantify metrics (e.g. latency reduced by 40%) and action verbs', 'ATS-verified PDF resume score > 85%', '10 Hours', 'Senior Engineer resume review session', 'Upcoming'],
+      ['Week 8', 'Technical Mock Interviews & Final Drills', 'Live coding simulations, STAR behavioral stories, system design', 'Complete 3 full mock interviews in AI Studio', '16 Hours', 'Readiness score > 80% achieved', 'Upcoming']
+    ]
+  }
+};
+
+function previewCsv(key){
+  const data = CSV_DATA[key];
+  if(!data) return;
+
+  document.getElementById('csvModalTitle').textContent = data.title;
+  const table = document.getElementById('csvPreviewTable');
+  
+  let headerHtml = '<thead><tr>' + data.headers.map(h => `<th>${escapeHtml(h)}</th>`).join('') + '</tr></thead>';
+  let bodyHtml = '<tbody>' + data.rows.map(row => 
+    '<tr>' + row.map(cell => `<td>${escapeHtml(cell)}</td>`).join('') + '</tr>'
+  ).join('') + '</tbody>';
+
+  table.innerHTML = headerHtml + bodyHtml;
+  document.getElementById('csvPreviewModal').classList.add('open');
+}
+
+function closeCsvModal(e){
+  if(e && e.target && e.target.classList && !e.target.classList.contains('modal-backdrop') && !e.target.classList.contains('btn')) return;
+  document.getElementById('csvPreviewModal').classList.remove('open');
+}
+
+/* ---------------- Restore Session ---------------- */
+
+/* ================= THEME CONTROLLER & TEMPLATES ================= */
+function getSavedTheme() {
+  const saved = localStorage.getItem('cc_theme');
+  if (saved) return saved;
+  return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('cc_theme', theme);
+  const isDark = (theme === 'dark');
+
+  document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+    btn.setAttribute('aria-label', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+    btn.setAttribute('title', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+    const icHolder = btn.querySelector('.theme-ic-holder');
+    if (icHolder) {
+      icHolder.innerHTML = isDark 
+        ? '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'
+        : '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+    }
+    const labelHolder = btn.querySelector('.theme-label-holder');
+    if (labelHolder) {
+      labelHolder.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+    }
+  });
+
+  // Re-render chart if currently on dashboard to adapt axis colors
+  if (currentScreenId === 'dashboard' && typeof renderDashboard === 'function') {
+    renderDashboard();
+  }
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  const next = (current === 'dark') ? 'light' : 'dark';
+  applyTheme(next);
+}
+
+async function restoreSession(){
+  applyTheme(getSavedTheme());
+  const urlParams = new URLSearchParams(window.location.search);
+  const viewParam = urlParams.get('view');
+  if(viewParam){
+    currentScreenId = viewParam;
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    const target = document.getElementById('screen-' + viewParam);
+    if(target) target.classList.add('active');
+    const el = document.getElementById('globalSidebar');
+    if(el) { el.style.display = 'flex'; renderSidebar(); }
+    return;
+  }
+  if(window.location.hash.includes('google_token=')){
+    const token = new URLSearchParams(window.location.hash.replace(/^#/, '')).get('google_token');
+    history.replaceState(null, document.title, window.location.pathname);
+    if(token){ saveToken(token); }
+  }
+
+  if(authToken){
+    try{
+      const data = await apiFetch('/users/me');
+      applyServerUser(data.user);
+      renderProfileSummary();
+      renderSidebar();
+      // Keep on resume upload upon session restore
+      goTo('resume');
+      return;
+    }catch(err){
+      clearToken();
+    }
+  }
+
+  try{
+    const savedEmail = localStorage.getItem('cc_email');
+    if(savedEmail && emailInput) emailInput.value = savedEmail;
+  }catch(e){}
+
+  renderSidebar(); // Will stay hidden before login
+  showScreen('landing');
+}
+
+restoreSession();
+</script>
+</body>
+</html>
